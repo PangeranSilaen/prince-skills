@@ -35,18 +35,24 @@ Invoke-WebRequest -Uri "https://example.com/image.png" -OutFile "$env:TEMP\ocr-d
 ### Step 2: Run the OCR script
 
 ```powershell
+# Print result to terminal (default)
 powershell -File "C:\Users\hi\.agents\skills\glm-ocr\scripts\ocr.ps1" -FilePath "ABSOLUTE_PATH_HERE"
+
+# Save result to a file in the current working directory
+powershell -File "C:\Users\hi\.agents\skills\glm-ocr\scripts\ocr.ps1" -FilePath "ABSOLUTE_PATH_HERE" -OutputFile "result.md"
+
+# JSON output (includes layout details and bounding boxes)
+powershell -File "C:\Users\hi\.agents\skills\glm-ocr\scripts\ocr.ps1" -FilePath "ABSOLUTE_PATH_HERE" -Format json -OutputFile "result.json"
 ```
 
-For JSON output (includes layout details and bounding boxes):
-
-```powershell
-powershell -File "C:\Users\hi\.agents\skills\glm-ocr\scripts\ocr.ps1" -FilePath "ABSOLUTE_PATH_HERE" -Format json
-```
+**Path rules:**
+- `-FilePath`: the input file to OCR. Can be relative (resolved from cwd) or absolute.
+- `-OutputFile`: where to save. Relative paths resolve from the **current working directory** (the user's project folder). Do NOT save to home directory unless explicitly asked.
+- If user doesn't ask to save, just print to stdout and present in chat.
 
 ### Step 3: Present results
 
-The script outputs Markdown directly to stdout. Present it to the user. The output may contain `<div>` image tags for detected images/icons -- these can be ignored or mentioned.
+The script outputs Markdown directly to stdout (or saves to file if `-OutputFile` is set). Present it to the user. The output may contain `<div>` image tags for detected images/icons -- these can be ignored or mentioned.
 
 If the script exits with an error about token expiry (401), guide the user through the setup steps above to refresh their token.
 

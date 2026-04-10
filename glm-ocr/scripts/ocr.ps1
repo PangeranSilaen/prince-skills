@@ -8,16 +8,22 @@
     Path to the image or PDF file to OCR.
 .PARAMETER Format
     Output format: "markdown" (default) or "json".
+.PARAMETER OutputFile
+    Optional. Save result to this file instead of printing to stdout.
+    Relative paths resolve from the current working directory.
 .EXAMPLE
-    powershell -File ocr.ps1 -FilePath "C:\Users\hi\document.pdf"
-    powershell -File ocr.ps1 -FilePath "screenshot.png" -Format json
+    powershell -File ocr.ps1 -FilePath "screenshot.png"
+    powershell -File ocr.ps1 -FilePath "document.pdf" -Format json
+    powershell -File ocr.ps1 -FilePath "photo.jpg" -OutputFile "result.md"
 #>
 param(
     [Parameter(Mandatory=$true)]
     [string]$FilePath,
 
     [ValidateSet("markdown", "json")]
-    [string]$Format = "markdown"
+    [string]$Format = "markdown",
+
+    [string]$OutputFile = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -101,11 +107,18 @@ if ($result.code -ne 200) {
 
 $task = $result.data
 
-# Output based on format
+# Get content based on format
 if ($Format -eq "json") {
-    # Output the raw JSON content (layout details, bounding boxes, etc.)
-    $task.json_content
+    $content = $task.json_content
 } else {
-    # Output clean markdown
-    $task.markdown_content
+    $content = $task.markdown_content
+}
+
+# Output or save
+if ($OutputFile) {
+    $outPath = if ([System.IO.Path]::IsPathRooted($OutputFile)) { $OutputFile } else { Join-Path (Get-Location) $OutputFile }
+    Set-Content -Path $outPath -Value $content -Encoding UTF8
+    Write-Host "Saved to $outPath" -ForegroundColor Green
+} else {
+    $content
 }
