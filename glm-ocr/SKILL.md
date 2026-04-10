@@ -32,10 +32,23 @@ Resolve the user's file reference to an **absolute path**. If the user gives a U
 Invoke-WebRequest -Uri "https://example.com/image.png" -OutFile "$env:TEMP\ocr-download.png"
 ```
 
-### Step 2: Run the OCR script
+### Step 2: Ask user about output preference
+
+Before running the script, use the **question tool** to ask the user where they want the output:
+
+```
+Question: "Hasil OCR mau ditaruh di mana?"
+Options:
+  - "Tampilkan di chat" (default -- just print to terminal)
+  - "Simpan ke file" (save to working directory, suggest filename based on input)
+```
+
+If user picks "Simpan ke file", suggest a filename like `<input-name>-ocr.md` in the current working directory. Let user customize the name/path.
+
+### Step 3: Run the OCR script
 
 ```powershell
-# Print result to terminal (default)
+# Print result to terminal
 powershell -File "C:\Users\hi\.agents\skills\glm-ocr\scripts\ocr.ps1" -FilePath "ABSOLUTE_PATH_HERE"
 
 # Save result to a file in the current working directory
@@ -46,13 +59,14 @@ powershell -File "C:\Users\hi\.agents\skills\glm-ocr\scripts\ocr.ps1" -FilePath 
 ```
 
 **Path rules:**
-- `-FilePath`: the input file to OCR. Can be relative (resolved from cwd) or absolute.
+- `-FilePath`: the input file to OCR. Can be relative (resolved from cwd) or absolute. Files do NOT need to be in the current directory.
 - `-OutputFile`: where to save. Relative paths resolve from the **current working directory** (the user's project folder). Do NOT save to home directory unless explicitly asked.
-- If user doesn't ask to save, just print to stdout and present in chat.
 
-### Step 3: Present results
+### Step 4: Present results
 
-The script outputs Markdown directly to stdout (or saves to file if `-OutputFile` is set). Present it to the user. The output may contain `<div>` image tags for detected images/icons -- these can be ignored or mentioned.
+If printed to stdout, present the Markdown to the user in chat. The output may contain `<div>` image tags for detected images/icons -- these can be ignored or mentioned.
+
+If saved to file, confirm the path to the user.
 
 If the script exits with an error about token expiry (401), guide the user through the setup steps above to refresh their token.
 
