@@ -73,7 +73,7 @@ Readability and validity take priority over minimizing newlines.
 
 Return only the compacted content.
 
-Wrap the entire result in one fenced code block for easy copying. Do not add introductions, explanations, or closing remarks outside the fence.
+Wrap the entire result in one fenced code block (code snippet) for easy copying. Do not add introductions, explanations, or closing remarks outside the fence.
 
 Use the same language as the input unless the user requests otherwise.
 
