@@ -1,165 +1,219 @@
 ---
 name: multi-brain
-description: This skill should be used when work needs to be shared or remembered across Claude Code, OpenCode, Codex, or other agents through a two-level memory index in `.multibrain/session.md`, named sub-index files in `.multibrain/indexes/`, and selective deep context files in `.multibrain/context/`.
+description: Maintain lightweight, durable repository memory shared across AI agents. Use when initializing or maintaining `.multibrain`, resuming prior repository work, recording decisions or verified state future agents need, correcting stale memory, or selectively recalling earlier work. Do not use as a general activity log for trivial or one-off work.
+compatibility: Requires repository file read/write access. Python 3.10+ is optional for deterministic maintenance commands.
+metadata:
+  version: "2.0"
 ---
 
 # Multi Brain
 
-## Overview
+## Purpose
 
-Enable shared working memory across multiple coding agents without forcing every agent to read every detail. Keep `.multibrain/session.md` as a small master index, store task-oriented entry lists in `.multibrain/indexes/`, and store fuller context only in pointed markdown files inside `.multibrain/context/`.
+Maintain shared repository memory that answers two questions efficiently:
 
-## Use This Skill
+1. What is true and important **now**?
+2. Where can an agent selectively read the history or evidence behind it?
 
-Use this skill when any task should leave behind resumable context for another agent or tool, especially when switching between Claude Code, OpenCode, Codex, or long-running sessions.
+Keep memory state-first, bounded, evidence-aware, and cheap to scan. Multi Brain is a routing and recovery aid, not a replacement for current source code, tests, runtime evidence, or Git/GitHub state.
 
-Typical triggers:
-- Continue work started by another agent
-- Leave a breadcrumb trail before ending a session
-- Build long-term memory without bloating the main context window
-- Share task progress across tools in the same repository
-- Recall prior work by reading only the bucket that matches the current task
+## When To Use
 
-Do not use this skill for one-off throwaway tasks when no follow-up context is needed.
+Use Multi Brain when work creates durable knowledge that another session or agent is likely to need, including:
 
-## Workflow
+- resuming work started by another agent;
+- recording a durable decision, verified state change, constraint, root cause, blocker, or expensive-to-rediscover finding;
+- correcting or superseding stale memory;
+- initializing shared repository memory;
+- maintaining or compacting an existing `.multibrain/` store.
 
-### 0. Support `multi brain init`
+Do not write memory merely because work happened. Skip trivial edits, routine successful commands, temporary observations, and one-off tasks with no future handoff value.
 
-When the user asks to initialize Multi Brain, treat the request as a bootstrap operation for the current repository.
+## Memory Write Gate
 
-During `multi brain init`:
-- Create `.multibrain/session.md` if missing
-- Create `.multibrain/indexes/` if missing
-- Create `.multibrain/context/` if missing
-- Create at least one starter bucket such as `.multibrain/indexes/agents.md`
-- Inspect root-level agent instruction files such as `AGENTS.md` and `CLAUDE.md`
-- Update existing root instruction files non-destructively so they direct future agents to read Multi Brain first
+Write new memory only when at least one is true:
 
-Do not delete existing root instructions. Preserve repo-specific rules and append or merge Multi Brain guidance into the existing files.
+- a durable decision was made;
+- verified project state changed in a way future work depends on;
+- a reusable constraint or invariant was discovered;
+- a root cause, blocker, or failure mode was verified;
+- a previous assumption or memory entry was proven wrong;
+- an open loop remains for a future agent;
+- rediscovering the information would be materially expensive.
 
-### 1. Read The Master Index First
+Prefer updating current state over appending another event when the new information simply replaces older truth.
 
-Read `.multibrain/session.md` before starting work.
+## Source Of Truth
 
-Treat `session.md` as a master index only:
-- Read bucket names and short scope descriptions
-- Choose the most relevant bucket for the current task
-- Do not assume every bucket or pointed file must be opened
+When memory conflicts with current evidence, prefer the more authoritative source:
 
-If `.multibrain/session.md` does not exist, create:
-- `.multibrain/session.md`
-- `.multibrain/indexes/`
-- `.multibrain/context/`
+1. current runtime evidence, source code, tests, and active configuration;
+2. current repository documentation and current Issue/PR state;
+3. Multi Brain `Current State`;
+4. historical Multi Brain context or archived events.
 
-Use the template in `assets/session-template.md` when bootstrapping the folder. Use `assets/sub-index-template.md` when creating a new named bucket.
+Re-verify volatile facts when they matter, including branch/HEAD, PR status, running services, database state, credentials/access, test status, and environment configuration.
 
-When root instruction files exist:
-- Read them before editing
-- Add a short Multi Brain section near the top or in the mandatory startup section
-- Instruct agents to read `.multibrain/session.md` first
-- Instruct agents to open pointed `.multibrain/indexes/*.md` files selectively
-- Instruct agents to append new memory after meaningful work
+## Read Workflow
 
-When root instruction files do not exist:
-- Create `AGENTS.md` with minimal Multi Brain bootstrap guidance
-- Create `CLAUDE.md` only when that file pattern is already part of the repo convention or the user explicitly wants it
+### 1. Read The Master Index
 
-### 2. Follow The Relevant Named Bucket
+Read `.multibrain/session.md` first when it exists.
 
-Open the most relevant file under `.multibrain/indexes/` based on the task being worked on. Use named buckets such as `auth.md`, `deploy.md`, `ui.md`, `agents.md`, or other concise task-oriented names.
+Treat it only as a stable directory of named buckets. Do not turn it into a work log and do not update it for every event.
 
-Prefer this decision rule:
-- Read only `session.md` when the task is unrelated to prior work
-- Read one or two named sub-index files when the task clearly matches their scope
-- Read one or more context files only when the chosen sub-index points to details that matter
+### 2. Select The Minimum Relevant Memory
 
-Keep the memory nested:
-- `session.md` stays short
-- `.multibrain/indexes/*.md` stores concise task entries for a named area
-- Full reasoning, decisions, blockers, changed files, and follow-up notes go in pointed context files
+Choose the one bucket that best matches the task. Open a second bucket only when the task clearly crosses scopes.
 
-Detailed structure guidance lives in `references/memory-layout.md`.
+Inside a v2 bucket, read in this order:
 
-### 3. Write Into The Right Named Bucket After Work
+1. `Current State`
+2. `Open Loops`
+3. `Recent Events` only when chronology matters
+4. pointed context files only when deeper evidence or rationale is required
 
-After completing meaningful work, add one concise entry to the most relevant file in `.multibrain/indexes/`.
+For an unrelated task, reading `session.md` alone is enough.
 
-Keep each sub-index entry short:
-- Include timestamp
-- Include agent name
-- Include a short description of what was done
-- Include a pointer using `->` to the full context file
-- Keep newest entries at the top
+### 3. Re-verify Volatile State
 
-Do not write full explanations in a sub-index file.
+Before acting on volatile claims, verify them against the current repository/runtime instead of trusting historical memory.
 
-Then update `.multibrain/session.md` only as needed:
-- Add a new named bucket entry when creating a new bucket
-- Refresh `last_updated` or short summary for an existing bucket
-- Keep master index descriptions short and stable
+## Write Workflow
 
-For initialization work, prefer creating or updating an `agents` bucket first so later agent-behavior decisions have a stable home.
+### 1. Pass The Memory Write Gate
 
-### 4. Write A Full Context File Only When Useful
+Do not write anything until the result qualifies as durable memory.
 
-Write a new markdown file in `.multibrain/context/` when the work contains details worth preserving for future agents.
+### 2. Update Current Truth First
 
-Include only information that improves handoff quality:
-- Goal
-- What was changed
-- Important decisions
-- Files touched
-- Commands or verification that mattered
-- Known follow-up items
+Update `Current State` when the authoritative project state changed. Keep it concise and declarative.
 
-Skip a deep context file only when the task is truly trivial and the short index entry is enough.
+Use lifecycle labels when helpful:
 
-Use the template in `assets/context-template.md` when helpful.
+- `ACTIVE` — currently authoritative and relevant;
+- `SUPERSEDED` — replaced by newer evidence or a newer decision;
+- `CLOSED` — completed and no longer an open loop;
+- `HISTORICAL` — retained only as past evidence.
 
-### 5. Maintain Bucket Size With Summaries
+When new evidence supersedes older context, make the new authoritative pointer obvious. Preserve old evidence unless there is a separate reason to delete it.
 
-Keep each named sub-index bounded. Prefer a soft cap such as 25 entries per file.
+### 3. Maintain Open Loops
 
-When a bucket grows beyond the cap:
-- Summarize older entries into a compact note under `.multibrain/context/` or `.multibrain/memory/`
-- Replace many old entries with one compressed summary entry when appropriate
-- Preserve pointers to any context files that still matter
-- Keep the active bucket readable in under a minute
+Add, update, or close only actionable unfinished items. Avoid copying an entire Issue tracker into Multi Brain.
 
-Prefer summarizing and compressing over deleting raw history without replacement.
+### 4. Add A Short Recent Event Only When Useful
 
-## Format Rules
+Events are breadcrumbs, not reports. Keep each event concise and point to deeper context when detail matters.
 
-Follow these rules consistently:
-- Keep `session.md` human-scannable in under a minute
-- Treat `session.md` as an index of indexes, not the main work log
-- Keep named sub-index entries newest-first
-- Use short, stable bucket names
-- Use relative repository paths in pointers when possible
-- Prefer filenames such as `YYYY-MM-DD-HHMM-agent-topic.md`
-- Use markdown only; no JSON, YAML, or verbose logs in indexes
-- Record facts, not stream-of-consciousness notes
-- Update root instruction files by insertion or merge, never by destructive replacement unless the user explicitly asks for a rewrite
-
-## Entry Examples
-
-Master index entry:
+Recommended format:
 
 ```md
-- `agents` — shared notes for agent workflows, prompts, and skill behavior. Last updated: 2026-05-11 17:35 WIB -> .multibrain/indexes/agents.md
+- 2026-08-24T01:30+08:00 | state | Codex | verified auth lockout root cause -> .multibrain/context/2026-08-24T0130+0800-codex-auth-lockout.md
 ```
 
-Named sub-index entry:
+Use ISO 8601 timestamps with a numeric UTC offset. Keep filenames filesystem-safe by omitting `:` characters.
+
+### 5. Write Deep Context Selectively
+
+Create `.multibrain/context/*.md` only when future agents benefit from evidence or rationale beyond the bucket summary.
+
+Useful content:
+
+- goal and outcome;
+- authoritative decision and rationale;
+- evidence and verification;
+- relevant files or identifiers;
+- constraints and invalidated assumptions;
+- follow-up items.
+
+Record distilled rationale, not private chain-of-thought or a transcript of the session.
+
+## Size Budgets
+
+Treat size as the primary maintenance signal; entry count alone is insufficient.
+
+Recommended budgets:
+
+- `session.md`: target <= 4 KiB;
+- each bucket: target <= 6 KiB, maintenance recommended above 6 KiB, rollup required above 8 KiB;
+- `Current State`: preferably <= 8 bullets;
+- `Open Loops`: preferably <= 8 bullets;
+- `Recent Events`: preferably 8-12 active entries;
+- one event summary: preferably <= 320 characters before its pointer;
+- context note: normally 1-4 KiB, larger only when the investigation genuinely needs it.
+
+When a bucket exceeds budget, preserve authoritative current state and recent useful events, then roll older chronology into `.multibrain/archive/` or an intentionally compressed historical context note. Never discard still-authoritative evidence merely to meet a size target.
+
+## Secret Safety
+
+Assume `.multibrain/` may be committed.
+
+Never persist passwords, API tokens, session cookies, private keys, secret `.env` values, credential-bearing URLs, or raw logs containing secrets. Record safe locations or retrieval instructions instead, such as `development credentials are available in .cred`, without copying secret values.
+
+## Concurrency And Stability
+
+Keep `session.md` stable to reduce write collisions between agents working in different buckets. Update it only when a bucket is created, removed, renamed, or its scope materially changes.
+
+Prefer one durable bucket per cohesive domain. Use short, stable names such as `auth`, `deploy`, `ui`, `agents`, or `nvr-perf`.
+
+## Initialization
+
+When the user asks for `multi brain init`, bootstrap non-destructively:
+
+- create `.multibrain/session.md` if missing;
+- create `.multibrain/indexes/`, `.multibrain/context/`, and `.multibrain/archive/`;
+- create a starter `agents` bucket when no bucket exists;
+- inspect root agent instruction files such as `AGENTS.md` and `CLAUDE.md`;
+- add or update the marked Multi Brain startup block without replacing repository-specific guidance.
+
+Prefer the deterministic helper when Python is available:
+
+```bash
+python <skill-dir>/scripts/multibrain.py --repo . init
+```
+
+The command is intended to be idempotent. Existing unmarked Multi Brain guidance should not be duplicated; inspect and merge it deliberately instead.
+
+## Maintenance Commands
+
+When `scripts/multibrain.py` is available, prefer it for mechanical operations:
+
+```bash
+python <skill-dir>/scripts/multibrain.py --repo . status
+python <skill-dir>/scripts/multibrain.py --repo . doctor
+python <skill-dir>/scripts/multibrain.py --repo . record --bucket auth --agent codex --kind decision --summary "Use exact-model capability gating"
+python <skill-dir>/scripts/multibrain.py --repo . migrate
+```
+
+`doctor` checks structure, pointers, size budgets, and obvious integrity problems. `record` only performs deterministic event insertion after the agent has already decided the Memory Write Gate is satisfied. `migrate` preserves legacy v1 content under a historical section and adds empty v2 state sections; it does not invent a semantic summary.
+
+## Root Instruction Files
+
+Use marked blocks for deterministic maintenance:
 
 ```md
-- 2026-05-12 09:10 WIB — Claude Code: fixed the login page and form validation -> .multibrain/context/2026-05-12-0910-claude-login-page.md
+<!-- multi-brain:start -->
+## Multi Brain
+...
+<!-- multi-brain:end -->
 ```
+
+Never destructively replace unrelated `AGENTS.md` or `CLAUDE.md` content.
+
+## Relationship With Session Handoff
+
+Multi Brain and `session-handoff` serve different purposes:
+
+- Multi Brain stores durable repository knowledge reusable across many sessions.
+- Session Handoff packages the transition state of one specific long session.
+
+A handoff should reference durable Multi Brain knowledge instead of duplicating it. When a handoff reveals genuinely new durable knowledge, update Multi Brain once before finishing.
 
 ## Resources
 
-- Read `references/memory-layout.md` for the recommended nested indexing structure.
-- Copy from `assets/session-template.md` when creating a new `.multibrain/session.md`.
-- Copy from `assets/sub-index-template.md` when creating a new named sub-index file.
-- Copy from `assets/context-template.md` when creating a new full context note.
-- Reuse `assets/agents-snippet.md` and `assets/claude-snippet.md` when inserting Multi Brain startup guidance into root instruction files.
+- Read `references/memory-layout.md` for the v2 runtime structure and lifecycle model.
+- Read `references/maintenance.md` for budgets, rollup, migration, and integrity guidance.
+- Use templates under `assets/` for new stores and context notes.
+- Use `scripts/multibrain.py` for deterministic bootstrap and maintenance when available.
+- Use `evals/` as regression scenarios when changing this skill.

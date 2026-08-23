@@ -1,3 +1,5 @@
-## Multi Brain Startup
+<!-- multi-brain:start -->
+## Multi Brain
 
-Before broader repo exploration, read `.multibrain/session.md` first, select the named bucket in `.multibrain/indexes/` that best matches the active task, and open deeper `.multibrain/context/*.md` notes only when the bucket points to relevant detail. After meaningful work, append memory back into the appropriate named bucket and keep the master index current.
+Before broader repository exploration, read `.multibrain/session.md`, select only the bucket(s) relevant to the active task, and prioritize `Current State` plus `Open Loops`. Open deeper context selectively. Re-verify volatile state against current evidence. Write back only durable memory that future agents need; do not turn Multi Brain into an activity log or store secrets.
+<!-- multi-brain:end -->
