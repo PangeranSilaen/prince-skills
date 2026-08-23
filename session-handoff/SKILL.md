@@ -1,247 +1,208 @@
 ---
 name: session-handoff
-description: Create a structured handoff document and prompt starter when the current AI session is too long and the user wants to continue in a new session with full context preserved. Use when the user says "buat handoff", "handoff session", "lanjut new session", "session terlalu panjang", "compaction lalu handoff", "sesi baru", "context window penuh", "bikin handoff doc", or any request to package current session state for resumption elsewhere. Also activates when user explicitly mentions wanting prompt caching to work in next session, when context is approaching limits, or when wrapping up a long debugging/feature session that the user wants to pause and continue later. Produces both a markdown handoff doc AND a copy-paste prompt starter for the new session. Works with any project structure — auto-detects available tools, directories, and conventions (AGENTS.md, CLAUDE.md, etc).
+description: Create a temporary, structured transfer package when the user wants to continue a long or interrupted task in a fresh AI session. Use for explicit handoff/resume requests, context-window rollover, or moving active work to another agent. The handoff is ephemeral: preserve only transition state, reference durable repository memory instead of duplicating it, keep the artifact untracked, and instruct the receiving agent to delete it after successful consumption.
+compatibility: Requires file read/write access for file-based handoffs. Git is optional. Works without Multi Brain, but integrates with it when present.
+metadata:
+  version: "2.0"
 ---
 
 # Session Handoff
 
-When a session gets long and the user wants to continue in a new chat, this skill packages everything needed for an agent in the new session to be immediately productive — without the user having to re-explain context.
+Create a small, accurate bridge from the current session to the next one. A handoff is **temporary transport**, not durable project documentation.
 
-## When to Use
+## Core Contract
 
-Trigger this skill when the user signals **session fatigue** or **context overflow**:
+A good handoff answers only what the receiving agent needs to resume safely:
 
-- Direct: "bikin handoff", "handoff doc", "lanjut new session", "context udah panjang"
-- Indirect: "sesi sudah terlalu panjang", "biar prompt caching tetap jalan di sesi baru", "compaction"
-- Implicit: long sessions (>50 turns) where the user is wrapping up multiple PRs / investigations and starts asking about session state
+1. What is the task and why is it being handed off?
+2. What is verified true right now?
+3. What remains unfinished?
+4. What should the next agent do first?
+5. Which durable project sources should it read instead of trusting copied history?
 
-Don't trigger this for short clarification requests or normal pauses — only when the user explicitly signals they want to start fresh.
+The normal lifecycle is:
+
+```text
+snapshot -> create temporary handoff -> give prompt starter
+-> next agent reads -> re-verifies volatile state
+-> syncs genuinely new durable knowledge -> deletes handoff -> resumes work
+```
+
+Do not turn the handoff into a second changelog, project wiki, or long-term memory system.
+
+## When To Use
+
+Use this skill when the user explicitly wants to:
+
+- continue in a new chat/session;
+- hand work to another agent or client;
+- package state because the current context is too long;
+- pause a complex task and resume later with minimal rediscovery.
+
+Do not trigger merely because a session is long. Do not create a handoff for an ordinary pause unless continuity across sessions is actually requested.
 
 ## Output Contract
 
-Produce TWO artifacts:
+Produce:
 
-1. **Handoff doc** — a markdown file that the next agent reads first. Location auto-detected from project structure (see Step 2)
-2. **Prompt starter** — a ready-to-paste block in the current chat that the user copies into the new session
+1. one temporary handoff artifact when the next session can access the same filesystem; and
+2. one concise copy-paste prompt starter in the current chat.
 
-Both are required. The user paste prompt starter → new agent reads handoff doc → new agent confirms understanding → resumes work.
+If the user explicitly asks for a prompt-only handoff, or the next session cannot access the same filesystem, do **not** create a repository file. Produce a self-contained prompt handoff in chat instead, while keeping the same content discipline and secret-safety rules.
 
-## Step-by-Step Process
+## Workflow
 
-### Step 1: Take a final state snapshot
+### 1. Read repository guidance first
 
-Run these checks **before** writing the handoff (use what's available in the project):
+Inspect applicable `AGENTS.md`, `CLAUDE.md`, project docs, and active skills before writing the handoff. Do not copy those files into the handoff. Reference them and carry forward only session-specific constraints that are not obvious from the repository itself.
 
-```
-- git status --short (if using git)
-- git branch --show-current
-- git log --oneline -8
-- gh pr list or equivalent PR tool (if used)
-- DB count/records snapshot (if database-backed work was done)
-- Test suite baseline (npm test, pytest, php artisan test, etc.)
-```
+When Multi Brain exists, read only the relevant current-state bucket(s). See [references/lifecycle.md](references/lifecycle.md) for the exact division of responsibility.
 
-Save these outputs verbatim into the handoff. Don't paraphrase counts, hashes, or commit IDs — accuracy matters when the next agent verifies state. Skip any check that's not applicable to your project.
+### 2. Capture a minimal final snapshot
 
-### Step 2: Determine handoff doc location
+Verify only state that materially affects resumption. Common examples:
 
-**Auto-detect the best location** by checking what's available in the project:
+- current branch and HEAD;
+- clean/dirty working tree and important uncommitted paths;
+- active Issue/PR and whether it is draft/merged/blocked;
+- relevant test command and latest result;
+- runtime, database, deployment, or device state only when the current task depends on it.
 
-1. **Check AGENTS.md / CLAUDE.md first** — if it specifies a handoff/docs location, use that
-2. **Check for existing docs folder** — `docs/handoffs/`, `docs/`, or any `docs/` subfolder already used
-3. **Fallback to root** — `.handoffs/` at project root
-4. **Ask user** — if nothing detected, ask where they prefer
+Record exact identifiers such as commit SHA, PR number, test counts, or important file paths. Do not dump entire command outputs when a compact exact summary preserves the same operational meaning.
 
-Filename format: `YYYY-MM-DD-<short-topic-slug>.md` (e.g. `2026-05-14-db-safety-hardening-complete.md`).
+Label uncertain or unavailable facts explicitly as `INFERRED` or `NOT TESTED`; do not present them as verified.
 
-Don't overthink this — the location matters less than the content. Pick one and move on.
+### 3. Distill before writing
 
-### Step 3: Write the handoff doc
+Apply this retention test to every candidate detail:
 
-Use this template. **Make sections conditional** — skip or mark "N/A" if not applicable to your project. Don't force content that doesn't exist. The next agent should only see relevant information, not boilerplate for everything.
+Keep it only when the next agent would otherwise need to rediscover it before safely continuing.
 
-```markdown
-# Handoff — <YYYY-MM-DD>: <Topic Headline>
+Prefer pointers over duplication:
 
-> Dokumen ini ditulis di akhir sesi panjang (<one-line context>). Sesi berikutnya buka di chat baru karena context window sudah panjang. Dokumen ini cukup detail untuk agent baru langsung produktif tanpa baca history.
+- repository rules -> point to `AGENTS.md` / `CLAUDE.md`;
+- durable current state -> point to Multi Brain when present;
+- Issue/PR history -> point to the Issue/PR;
+- implementation detail -> point to relevant files/commits;
+- long forensic evidence -> point to durable context rather than copying it.
 
-## TL;DR
+A handoff should normally target roughly 3-8 KiB. Above ~12 KiB, re-check for copied history, duplicated durable memory, raw logs, or unnecessary boilerplate.
 
-<2-4 sentences max. What was done, what's the current state, what's next.>
+### 4. Prepare an ephemeral location
 
-## Status Git Saat Handoff
+Default to a repository-local `.handoff/` directory because it is easy for the receiving agent to locate while remaining outside durable project content.
 
-```
-Branch: <current branch> (<clean | dirty>, <sync state>)
-HEAD: <hash> <commit subject>
+When `scripts/handoff_temp.py` is available, prefer:
 
-Recent merges/commits:
-  <hash> (#PR) <subject>
-  ...
+```bash
+python <skill-dir>/scripts/handoff_temp.py --repo . prepare --topic <short-topic>
 ```
 
-**Untracked files:** <list, with note about whether to ignore/commit/etc.>
+The helper creates a unique `.handoff/*.md` path and, in Git repositories, adds `/.handoff/` to the repository's local `.git/info/exclude` rather than modifying tracked `.gitignore`.
 
-## Konteks Singkat: Apa Yang Terjadi Di Sesi Ini
+Rules:
 
-<Narrative 3-6 paragraphs. Cover:
-- Why the session started (initial task)
-- Major pivots or discoveries  
-- What was completed (PRs merged, files changed, decisions made)
-- What was left undone and why>
+- never commit a handoff;
+- never add `.handoff/` to tracked `.gitignore` solely for this workflow;
+- if `.handoff/` is already tracked or repository policy forbids local temp files, use system temp or chat-only handoff instead;
+- do not ask the user to choose a location when a safe default is available.
 
-## State Database / Infrastructure
+See [references/lifecycle.md](references/lifecycle.md) for fallback rules and cleanup semantics.
 
-<Counts, server states, deployment status. If none, write "Tidak ada database/infra work yang dilakukan">
+### 5. Write the handoff
 
-## Login / Access Credentials
+Use [assets/handoff-template.md](assets/handoff-template.md). Omit irrelevant sections instead of filling the document with `N/A` boilerplate.
 
-<Local-only credentials for testing. Never include production secrets. If none, write "Tidak ada credentials digunakan">
+Required properties:
 
-## Test Suite Baseline
+- current-state-first, not chronological;
+- explicit `VERIFIED`, `INFERRED`, and `NOT TESTED` where useful;
+- clear next action;
+- concise open loops;
+- exact pointers to durable sources;
+- no secrets;
+- no raw chain-of-thought or conversation transcript.
 
-<Last test run counts. Note pre-existing failures so next agent doesn't chase ghosts.>
+### 6. Reconcile with Multi Brain
 
-## Open Tasks (Priority Order)
+If Multi Brain exists:
 
-<% If there are open tasks %>
-### 1. <Task title> (<HIGH|MEDIUM|LOW>)
+- do not copy durable knowledge into the handoff merely for completeness;
+- update Multi Brain only when this session produced genuinely new durable knowledge that passes its Memory Write Gate;
+- keep volatile transition state only in the handoff;
+- let the handoff point to relevant Multi Brain bucket/context paths.
 
-URL: <issue/PR url if any>
+The handoff may be deleted. Multi Brain must remain useful after that deletion.
 
-**Context:** <1-3 sentences about what user reported or why this matters>
+### 7. Produce the prompt starter
 
-**Investigasi yang diperlukan:** <what to look at first>
+Use [assets/prompt-starter-template.md](assets/prompt-starter-template.md) as a pattern, then customize it to the actual task.
 
-**Reference files:** <bullet list of likely-relevant paths>
+The receiving agent must be instructed to:
 
-### 2. ... (repeat)
-<% else %>
-Tidak ada open tasks untuk dilanjutkan.
-<% endif %>
+1. read the handoff fully;
+2. read referenced repository instructions/current durable memory as needed;
+3. re-verify volatile state before relying on the snapshot;
+4. sync any genuinely new durable knowledge if necessary;
+5. delete the temporary handoff after successful consumption;
+6. continue the recommended next action without asking the user to re-explain known context.
 
-## Constraints & Konvensi yang HARUS Diingat
+### 8. Final checks
 
-<Pull from AGENTS.md/CLAUDE.md/project-specific docs. Critical rules only — don't dump entire file. Examples:
-- Forbidden commands
-- PR/branch conventions
-- Tool preferences (e.g., "use Read not cat")
-- Communication style preferences>
+Before reporting completion:
 
-<% If project has defined skills/conventions that should be auto-triggered %>
-## Skills / Tools Project-Scope
+- re-open the handoff and verify important identifiers;
+- confirm the handoff is untracked when Git is present;
+- confirm no credentials/secrets were copied;
+- ensure the document has a concrete next action;
+- ensure durable knowledge is not trapped only inside the temporary artifact;
+- ensure the prompt starter includes cleanup.
 
-<List skills the next agent should activate proactively for this project's domain.>
-<% endif %>
+Do not auto-commit or create a changelog entry merely because a handoff was produced.
 
-## Tech Stack Ringkas
+## Secret Safety
 
-<One line per layer: language version, framework, DB, build tool, etc.>
+Never place passwords, API tokens, session cookies, private keys, secret `.env` values, credential-bearing URLs, recovery codes, or production credentials in a handoff.
 
-## File Yang Mungkin Sering Disentuh (Reference Cepat)
+This applies to local-development credentials too. Record safe retrieval locations or instructions instead of values.
 
-<% If key files were frequently worked on %>
-| Path | Tujuan |
-|------|--------|
-| ... | ... |
-<% else %>
-Tidak ada file khusus yang dominan dalam sesi ini.
-<% endif %>
+Treat raw logs as sensitive until reviewed. Include only the minimal redacted evidence needed to resume.
 
-## Saran Order Berikut (Recommended)
+## Receiving-Agent Cleanup Protocol
 
-<Numbered list, opinionated. The next agent should be able to pick task #1 and start without re-deciding.>
+A receiving agent should delete the handoff **after** all of these are true:
 
-<% If production/deploy work was involved %>
-## Production / Deploy Info
+- the file was read successfully;
+- critical repository guidance and referenced durable memory were loaded;
+- volatile state needed for the next action was re-verified;
+- any new durable knowledge worth preserving was written to its proper durable source.
 
-<SSH targets, deploy paths, environment quirks. Flag anything destructive.>
-<% else %>
-Tidak ada production/deploy work yang dilakukan.
-<% endif %>
+Then remove the artifact before substantive work continues.
 
----
+When the helper is available:
 
-**Catatan untuk agent baru:** <interaction style notes — language preference, decision-making style, recommended use of tools, anything unique to the user that helps the next agent maintain rapport>
+```bash
+python <skill-dir>/scripts/handoff_temp.py --repo . cleanup --path <handoff-path>
 ```
 
-Match the language of the doc to what the user has been speaking in this session. If user wrote Indonesian, write the handoff in Indonesian (technical terms like "branch", "commit", "PR" stay English).
-
-### Step 4: Write the prompt starter
-
-Provide this as a code block in the current chat reply. The user copies it into the new session.
-
-**Generic template** (customize based on what you detected in Step 1):
-
-```
-Halo, gw lanjut dari sesi sebelumnya (<DATE>) yang sudah panjang. Konteks lengkap ada di file `<HANDOFF_PATH>` di project ini.
-
-Tolong lo baca file handoff itu dulu (full, jangan skim) sebelum reply apapun. Setelah itu konfirmasi:
-1. State git + branch + last commits sesuai handoff
-2. State <DB/infra jika applicable> (counts) sesuai handoff  
-3. Open tasks + priority order
-4. Constraints critical yang harus diingat
-
-Setelah itu, langsung mulai task #1 dari "Saran Order Berikut" di handoff (<TASK_TITLE>). <PROCESS_NOTES — e.g., "TDD properly", "pakai question tool dengan label RECOMMENDED", "bahasa Indonesia">.
-
-Konteks kenapa handoff: <ONE_LINE — e.g., "sesi sebelumnya panjang karena ngerjain X+Y+Z, semua sudah merged. Mau lanjut task baru tapi context window sudah gede.">
-```
-
-**Customize the `<PROCESS_NOTES>`** based on what worked well in this session. Examples:
-- If using databases: `"cek DB state juga"`
-- If testing is important: `"run tests before changes"`
-- User preference: `"gunakan Bahasa Indonesia untuk semua response"`
-
-If the user's AGENTS.md has specific instructions, mention those too.
-
-### Step 5: Update changelogs (if project has any)
-
-If the project tracks `CHANGELOG.md`, `.opencode/CHANGELOG.md`, or similar, add an entry summarizing the session. Even if gitignored, this helps the next agent. Skip if no such file exists — not all projects need this.
-
-### Step 6: Final reply to user
-
-Tell the user:
-
-1. Where the handoff doc is written (full path)
-2. Show the prompt starter as a code block they can copy
-3. Final state check (git clean, DB intact, tests stable)
-4. Note about prompt caching (per-conversation, so new session = new cache, but the structured doc minimizes re-discovery time)
-5. Anything left unstaged that they need to decide on
-
-Keep the reply tight — they're about to switch sessions, so the message should be skim-friendly, not a wall of prose.
+The helper refuses to delete arbitrary paths outside the managed temporary handoff area.
 
 ## Anti-Patterns
 
-- **Don't dump conversation history verbatim.** The handoff is a *digest*, not a transcript. The next agent doesn't need every message — just the decisions, state, and next steps.
-- **Don't skip the snapshot step.** Without git/test/DB state, the next agent has to re-discover, which defeats the purpose.
-- **Don't write "see chat history".** The new session won't have access to the old chat. Everything important must be in the doc.
-- **Don't auto-commit the handoff** unless the user explicitly asks. Many projects gitignore handoff docs intentionally — let the user decide.
-- **Don't make the prompt starter generic.** Tailor it to the specific user (language, decision style, tools they prefer). A generic starter loses session-specific context that took the current agent time to learn.
-- **Don't include secrets or production credentials.** Local dev creds OK; anything that grants production access stays out.
+- Permanent handoff files under `docs/` or the repository root by default.
+- Committing handoffs "for history".
+- Updating `CHANGELOG.md` just because a session ended.
+- Dumping full chat history or raw terminal output.
+- Copying `AGENTS.md`, Multi Brain, Issues, or PR descriptions into the handoff.
+- Treating a stale handoff snapshot as authoritative without re-verification.
+- Storing credentials because they are "only local".
+- Asking the user to re-state context that the handoff or repository can resolve.
+- Leaving the handoff behind after the next agent has consumed it.
 
-## When to Be Brief vs Detailed
+## Resources
 
-**Brief handoff (under 200 lines):**
-- Single-task session
-- One PR merged, no major pivots
-- No infrastructure or production touched
-
-**Detailed handoff (300-500 lines):**
-- Multiple PRs or investigations
-- Forensic / debugging sessions where root cause matters for context
-- Production touches or deployment decisions
-- Multiple open issues being tracked
-
-A handoff over 500 lines is usually too long — split into multiple sub-pages or trim aggressively.
-
-## Verification Before Finishing
-
-Before telling the user "you can switch sessions now":
-
-- [ ] Handoff doc written and readable (re-open it, scan for typos / missing sections)
-- [ ] Prompt starter customized for the specific user / project
-- [ ] Final state snapshot matches the handoff body (no drift) — **skip checks that don't apply** (e.g., if no DB work, don't verify DB counts)
-- [ ] Any unstaged changes flagged to user
-- [ ] If project has CHANGELOG, entry added
-
-If any check fails, fix it before announcing "ready". The next agent's context quality depends on this doc being accurate.
+- Read [references/lifecycle.md](references/lifecycle.md) when choosing storage, integrating with Multi Brain, or handling cleanup/fallbacks.
+- Use [assets/handoff-template.md](assets/handoff-template.md) to write the temporary artifact.
+- Use [assets/prompt-starter-template.md](assets/prompt-starter-template.md) for the receiving-session prompt.
+- Use `scripts/handoff_temp.py` for deterministic prepare/status/cleanup mechanics when Python is available.
+- Use `evals/` as regression scenarios when changing activation or behavior.
