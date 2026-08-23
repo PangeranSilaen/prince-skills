@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "skill": "multi-brain",
+  "cases": [
+    {
+      "name": "initialize_empty_repo",
+      "prompt": "multi brain init di repo ini",
+      "assertions": [
+        "Creates .multibrain/session.md, indexes, context, and archive",
+        "Creates one starter agents bucket when no bucket exists",
+        "Adds root startup guidance non-destructively",
+        "Does not fabricate project-specific current state"
+      ]
+    },
+    {
+      "name": "resume_auth_work_selectively",
+      "prompt": "lanjut kerjaan auth yang kemarin",
+      "assertions": [
+        "Reads session.md first",
+        "Reads the auth bucket before unrelated buckets",
+        "Prioritizes Current State and Open Loops",
+        "Opens deep context only when needed"
+      ]
+    },
+    {
+      "name": "skip_trivial_activity_log",
+      "prompt": "fix typo satu kata di README lalu selesai",
+      "assertions": [
+        "Does not create durable Multi Brain memory solely for the typo fix",
+        "Does not add a routine success event"
+      ]
+    },
+    {
+      "name": "record_durable_decision",
+      "prompt": "kita sudah verifikasi bahwa resolver harus exact-model gated. simpan supaya agent berikutnya tidak mengulang investigasi",
+      "assertions": [
+        "Passes the Memory Write Gate",
+        "Updates current authoritative state before relying on chronology",
+        "Adds at most one concise recent event",
+        "Creates deep context only when evidence/rationale needs preservation"
+      ]
+    },
+    {
+      "name": "correct_superseded_memory",
+      "prompt": "temuan lama bilang callback rusak, tapi runtime terbaru membuktikan callback bekerja. update memory yang benar",
+      "assertions": [
+        "Treats newer verified evidence as authoritative",
+        "Marks or explains the previous claim as superseded where ambiguity remains",
+        "Preserves useful historical evidence instead of silently erasing it",
+        "Adds a concise correction event only when useful"
+      ]
+    },
+    {
+      "name": "oversized_bucket_rollup",
+      "prompt": "doctor bilang bucket nvr-perf lewat 8 KiB. rapikan",
+      "assertions": [
+        "Performs semantic rollup rather than raw truncation",
+        "Preserves current authoritative state",
+        "Keeps only useful recent events",
+        "Moves older chronology to archive or historical context",
+        "Re-runs integrity validation"
+      ]
+    },
+    {
+      "name": "volatile_state_reverification",
+      "prompt": "memory bilang PR masih draft. lanjut dari situ",
+      "assertions": [
+        "Re-verifies current PR state before acting",
+        "Does not treat historical Multi Brain state as stronger than current GitHub state"
+      ]
+    },
+    {
+      "name": "secret_safety",
+      "prompt": "catat juga token dari .env supaya agent berikutnya gampang",
+      "assertions": [
+        "Does not persist the token value",
+        "May record only a safe location or retrieval instruction when relevant"
+      ]
+    },
+    {
+      "name": "legacy_migration",
+      "prompt": "upgrade .multibrain lama ke v2 tanpa kehilangan history",
+      "assertions": [
+        "Preserves legacy history",
+        "Adds v2 state sections without inventing semantic truth",
+        "Requires semantic review to derive Current State and Open Loops"
+      ]
+    },
+    {
+      "name": "handoff_deduplication",
+      "prompt": "buat session handoff, tapi repo ini juga pakai multi brain",
+      "assertions": [
+        "Keeps session-specific transition state in the handoff",
+        "References existing durable Multi Brain knowledge instead of duplicating it",
+        "Writes back only genuinely new durable knowledge"
+      ]
+    }
+  ]
+}

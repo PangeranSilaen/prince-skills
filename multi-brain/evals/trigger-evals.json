@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skill": "multi-brain",
+  "should_trigger": [
+    "multi brain init di repo ini",
+    "lanjut kerjaan auth yang kemarin dan baca shared memory dulu",
+    "catat keputusan ini supaya Codex berikutnya tidak mengulang investigasi",
+    "update .multibrain karena temuan lama sekarang superseded",
+    "cek kesehatan multi brain dan rapikan bucket yang terlalu besar",
+    "migrate memory multi brain lama ke format terbaru tanpa buang history"
+  ],
+  "should_not_trigger": [
+    "jelaskan fungsi Python ini",
+    "fix typo README satu kata",
+    "buat regex untuk validasi email",
+    "jalankan unit test lalu kasih tahu hasilnya",
+    "rename variable lokal ini",
+    "ringkas artikel yang baru kutempel"
+  ],
+  "near_miss_notes": [
+    "A task being technically meaningful is not enough; future durable reuse must be plausible.",
+    "Routine test success should not create memory unless it changes an invariant, decision, blocker, or reusable understanding.",
+    "A request to resume prior repository work should trigger selective recall even when the user does not literally say 'multi brain'."
+  ]
+}

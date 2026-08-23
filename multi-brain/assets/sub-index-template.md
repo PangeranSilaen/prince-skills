@@ -1,13 +1,25 @@
-# Named Sub-Index: `bucket-name`
+# Multi Brain Bucket: `bucket-name`
 
-Use this file as a concise work log for one task area or topic.
+Scope: short, durable description of what belongs in this bucket.
 
-Rules:
-- Put the newest entry at the top
-- Keep each entry to one line
-- Store longer detail in a pointed file when needed
-- When the file grows too long, summarize older entries into a context or memory note
+## Current State
 
-## Entries
+<!-- Add only currently authoritative facts, decisions, constraints, and invariants. -->
 
-- YYYY-MM-DD HH:MM WIB — AgentName: short work summary -> .multibrain/context/YYYY-MM-DD-HHMM-agent-topic.md
+## Open Loops
+
+<!-- Add only actionable unfinished items. -->
+
+## Recent Events
+
+<!-- Format: YYYY-MM-DDTHH:MM+HH:MM | kind | AgentName | concise durable event -> optional context pointer -->
+
+## Rules
+
+- Read `Current State` and `Open Loops` before chronology.
+- Keep current state declarative and authoritative.
+- Use `ACTIVE`, `SUPERSEDED`, `CLOSED`, or `HISTORICAL` when lifecycle clarity matters.
+- Keep recent events short; use deep context for evidence and rationale.
+- Prefer 8-12 recent events maximum.
+- Run maintenance above 6 KiB; roll up history above 8 KiB.
+- Never store secrets or raw credential-bearing output.

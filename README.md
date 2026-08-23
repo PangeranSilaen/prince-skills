@@ -8,7 +8,7 @@ Personal collection of reusable AI agent skills for coding and knowledge-work wo
 | --- | --- | --- |
 | [`compactor`](./compactor/) | Active | Losslessly compress prompts, instructions, and other text while preserving operational meaning and constraints. |
 | [`session-handoff`](./session-handoff/) | Active | Package long-session context into a structured handoff so work can continue cleanly in a new agent session. |
-| [`multi-brain`](./multi-brain/) | Active | Share lightweight, selective repository memory across multiple agents through a two-level index and deeper context notes. |
+| [`multi-brain`](./multi-brain/) | Active | Maintain state-first, selective repository memory across multiple agents with bounded buckets, deeper evidence, lifecycle semantics, and optional integrity tooling. |
 | [`github-issue-pr`](./github-issue-pr/) | Active, AksaLoka-specific | Create and update GitHub Issues and PRs using AksaLoka conventions, templates, draft workflow, secret-safety rules, and UTF-8 verification. |
 | [`glm-ocr`](./glm-ocr/) | Legacy / Not in use | OCR through `ocr.z.ai`. Kept for reference, but no longer part of the active workflow. |
 
@@ -24,7 +24,7 @@ Creates a structured handoff document plus a prompt starter for continuing long-
 
 ### multi-brain
 
-Provides shared repository memory across agents using `.multibrain/session.md` as a small master index, `.multibrain/indexes/` for topic-oriented buckets, and `.multibrain/context/` for deeper notes. The goal is selective recall with lower context and token overhead than rereading full project history.
+Provides durable shared repository memory across agents using `.multibrain/session.md` as a stable bucket directory, state-first files under `.multibrain/indexes/`, selective evidence under `.multibrain/context/`, and historical rollups under `.multibrain/archive/`. Version 2 adds a Memory Write Gate, `ACTIVE`/`SUPERSEDED` lifecycle semantics, source-of-truth rules, byte-size budgets, secret-safety guidance, deterministic `init`/`status`/`doctor`/`record`/`migrate` tooling, and regression evals.
 
 ### github-issue-pr
 

@@ -1,13 +1,14 @@
 # Multi Brain Master Index
 
-Use this file as the master index that points to sub-index files.
+Use this file only as a stable directory of named buckets.
 
 Rules:
-- Keep this file short and easy to scan
-- Use one line per named bucket
-- Update `Last updated` when the related bucket receives a new entry
-- Store the main work log in `.multibrain/indexes/*.md`, not here
+- Keep this file short and easy to scan.
+- Use one line per named bucket.
+- Do not add per-event timestamps or work-log detail here.
+- Update this file only when a bucket is created, removed, renamed, or its scope materially changes.
+- Read the relevant bucket under `.multibrain/indexes/` before opening deep context.
 
 ## Buckets
 
-- `bucket-name` — short bucket scope. Last updated: YYYY-MM-DD HH:MM WIB -> .multibrain/indexes/bucket-name.md
+<!-- Entry shape: bucket name — durable scope description — relative bucket path -->
