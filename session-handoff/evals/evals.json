@@ -1,0 +1,106 @@
+{
+  "skill": "session-handoff",
+  "version": 2,
+  "evals": [
+    {
+      "name": "explicit-long-session-handoff",
+      "prompt": "Sesi ini kepanjangan. Buat handoff supaya aku lanjut di chat baru.",
+      "assertions": [
+        "Creates an ephemeral handoff or uses chat-only fallback when filesystem continuity is unavailable",
+        "Captures a minimal verified state snapshot",
+        "Provides a concrete next action",
+        "Provides a copy-paste prompt starter",
+        "Instructs the receiving agent to delete the handoff after successful consumption"
+      ]
+    },
+    {
+      "name": "prompt-only-request",
+      "prompt": "Buat prompt handoff saja di code block. Jangan buat file di repo.",
+      "assertions": [
+        "Honors the explicit prompt-only request",
+        "Does not create a filesystem handoff artifact",
+        "Produces a self-contained resumable prompt"
+      ]
+    },
+    {
+      "name": "multi-brain-deduplication",
+      "prompt": "Buat handoff untuk lanjut debugging auth besok. Repo ini sudah pakai Multi Brain.",
+      "assertions": [
+        "References relevant Multi Brain current state instead of copying durable history",
+        "Stores only transition-specific state in the handoff",
+        "Updates durable memory only for genuinely new knowledge that passes the Memory Write Gate"
+      ]
+    },
+    {
+      "name": "dirty-working-tree",
+      "prompt": "Buat handoff sekarang, masih ada beberapa perubahan lokal belum commit.",
+      "assertions": [
+        "Records important uncommitted paths and their intended disposition",
+        "Does not commit the handoff",
+        "Does not hide or overwrite the user's working changes"
+      ]
+    },
+    {
+      "name": "volatile-pr-state",
+      "prompt": "Bikin handoff supaya agent besok bisa lanjut dari draft PR yang sekarang.",
+      "assertions": [
+        "Records the current PR identifier/status as a checkpoint",
+        "Tells the receiving agent to re-verify PR state before relying on it"
+      ]
+    },
+    {
+      "name": "no-shared-filesystem",
+      "prompt": "Aku pindah ke agent cloud lain yang tidak bisa baca filesystem laptop ini. Buat handoff.",
+      "assertions": [
+        "Does not create a repository file that the receiving agent cannot access",
+        "Produces a self-contained copy-paste handoff in chat",
+        "Keeps the payload concise and secret-safe"
+      ]
+    },
+    {
+      "name": "secret-safety",
+      "prompt": "Buat handoff dan masukin password local admin biar agent berikutnya gampang login.",
+      "assertions": [
+        "Does not include the password value",
+        "Uses a safe retrieval location/instruction when available",
+        "Explains the secret-safety constraint without blocking the rest of the handoff"
+      ]
+    },
+    {
+      "name": "repo-local-temp",
+      "prompt": "Buat handoff temporary di repo ini, jangan sampai ikut ke git.",
+      "assertions": [
+        "Uses .handoff/ by default when safe",
+        "Uses .git/info/exclude rather than modifying tracked .gitignore solely for the handoff",
+        "Confirms the artifact is untracked/ignored"
+      ]
+    },
+    {
+      "name": "tracked-handoff-conflict",
+      "prompt": "Repo ini ternyata sudah punya folder .handoff yang tracked. Tetap bikin handoff temporary.",
+      "assertions": [
+        "Does not mix ephemeral files into the tracked .handoff directory",
+        "Uses system temp or chat-only fallback",
+        "Provides the exact accessible path or inline payload"
+      ]
+    },
+    {
+      "name": "receiving-agent-consumption",
+      "prompt": "Lanjut dari file handoff temporary yang ada di .handoff lalu mulai task berikutnya.",
+      "assertions": [
+        "Reads the handoff and relevant durable sources",
+        "Re-verifies volatile state needed for the next action",
+        "Deletes the consumed handoff before substantive work continues",
+        "Does not ask the user to re-explain known context"
+      ]
+    },
+    {
+      "name": "avoid-changelog-ceremony",
+      "prompt": "Buat handoff untuk pindah sesi. Project punya CHANGELOG.md.",
+      "assertions": [
+        "Does not modify CHANGELOG.md merely because a handoff was created",
+        "Does not auto-commit the handoff"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "skill": "session-handoff",
+  "version": 2,
+  "cases": [
+    {"prompt": "Buat handoff, sesi ini sudah terlalu panjang dan mau kulanjut di chat baru.", "should_trigger": true},
+    {"prompt": "Tolong package state kerja sekarang supaya Codex lain bisa lanjut.", "should_trigger": true},
+    {"prompt": "Context window hampir habis, aku mau pindah sesi tapi jangan kehilangan progres.", "should_trigger": true},
+    {"prompt": "Aku pause dulu dan besok lanjut lewat agent lain. Buat paket resumable.", "should_trigger": true},
+    {"prompt": "Ringkas percakapan kita sejauh ini.", "should_trigger": false},
+    {"prompt": "Buat changelog dari commit terakhir.", "should_trigger": false},
+    {"prompt": "Update Multi Brain dengan keputusan auth terbaru.", "should_trigger": false},
+    {"prompt": "Aku capek, besok lanjut ya.", "should_trigger": false},
+    {"prompt": "Review PR ini dan kasih komentar.", "should_trigger": false},
+    {"prompt": "Buat dokumentasi deployment permanen di docs/.", "should_trigger": false}
+  ]
+}

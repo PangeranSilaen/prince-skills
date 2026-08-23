@@ -7,7 +7,7 @@ Personal collection of reusable AI agent skills for coding and knowledge-work wo
 | Skill | Status | Purpose |
 | --- | --- | --- |
 | [`compactor`](./compactor/) | Active | Losslessly compress prompts, instructions, and other text while preserving operational meaning and constraints. |
-| [`session-handoff`](./session-handoff/) | Active | Package long-session context into a structured handoff so work can continue cleanly in a new agent session. |
+| [`session-handoff`](./session-handoff/) | Active | Transfer active work into a fresh AI session through an ephemeral, untracked handoff that is deleted after successful consumption. |
 | [`multi-brain`](./multi-brain/) | Active | Maintain state-first, selective repository memory across multiple agents with bounded buckets, deeper evidence, lifecycle semantics, and optional integrity tooling. |
 | [`github-issue-pr`](./github-issue-pr/) | Active, AksaLoka-specific | Create and update GitHub Issues and PRs using AksaLoka conventions, templates, draft workflow, secret-safety rules, and UTF-8 verification. |
 | [`glm-ocr`](./glm-ocr/) | Legacy / Not in use | OCR through `ocr.z.ai`. Kept for reference, but no longer part of the active workflow. |
@@ -20,7 +20,7 @@ Losslessly reduces text size and token usage without silently dropping facts, re
 
 ### session-handoff
 
-Creates a structured handoff document plus a prompt starter for continuing long-running work in a fresh session. It is designed to preserve project state, decisions, verification, blockers, and next steps without requiring the user to explain everything again.
+Creates an ephemeral transition package for moving active work into a fresh agent session. Version 2 keeps the handoff outside durable repository history, defaults to a locally ignored `.handoff/` artifact when filesystem continuity exists, points to durable sources such as Multi Brain instead of duplicating them, requires re-verification of volatile state, and tells the receiving agent to delete the handoff after successful consumption.
 
 ### multi-brain
 
