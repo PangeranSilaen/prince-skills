@@ -10,6 +10,7 @@ Personal collection of reusable AI agent skills for coding and knowledge-work wo
 | [`session-handoff`](./session-handoff/) | Active | Transfer active work into a fresh AI session through an ephemeral, untracked handoff that is deleted after successful consumption. |
 | [`multi-brain`](./multi-brain/) | Active | Maintain state-first, selective repository memory across multiple agents with bounded buckets, deeper evidence, lifecycle semantics, and optional integrity tooling. |
 | [`astra-maxxing`](./astra-maxxing/) | Active | Route reasoning work between browser Sol and GPT-6 Astra, generate quota-aware Astra executor prompts, and independently audit returned artifacts. |
+| [`natural-academic-writing`](./natural-academic-writing/) | Active / Calibrating | Draft and revise academic writing with source fidelity, genre-aware naturalness, and a conservative voice-calibration loop for coursework and thesis writing. |
 | [`github-issue-pr`](./github-issue-pr/) | Active, AksaLoka-specific | Create and update GitHub Issues and PRs using AksaLoka conventions, templates, draft workflow, secret-safety rules, and UTF-8 verification. |
 | [`glm-ocr`](./glm-ocr/) | Legacy / Not in use | OCR through `ocr.z.ai`. Kept for reference, but no longer part of the active workflow. |
 
@@ -30,6 +31,10 @@ Provides durable shared repository memory across agents using `.multibrain/sessi
 ### astra-maxxing
 
 Routes each work stage between the current browser ChatGPT GPT-5.6 Sol orchestrator and GPT-6 Astra based on evidence maturity and reasoning difficulty. It defaults Astra synthesis to Medium, reserves High for materially harder reasoning, requires explicit approval before consuming Astra quota unless standing authorization exists, generates a bounded executor contract, and treats every Astra result as a working artifact until independently audited.
+
+### natural-academic-writing
+
+Drafts and revises Indonesian academic prose while separating source correctness, genre rules, and personal voice. It currently has separate coursework and thesis/proposal modes, an evidence-informed audit for repetitive or formulaic AI-style prose, and a conservative calibration loop that learns from user paraphrases without copying factual, citation, grammar, or academic defects. The initial voice profile is strongest for reflective coursework and is intentionally marked as still calibrating for thesis writing.
 
 ### github-issue-pr
 
