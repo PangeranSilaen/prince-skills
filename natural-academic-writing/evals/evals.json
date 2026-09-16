@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "skill": "natural-academic-writing",
+  "cases": [
+    {
+      "name": "reflective_coursework_uses_natural_register",
+      "prompt": "Rapikan jawaban refleksi etika ini. Aku ingin tetap terasa seperti mahasiswa yang benar-benar menulis sendiri, bukan terlalu formal.",
+      "assertions": [
+        "Selects coursework mode",
+        "Keeps the reasoning academically defensible while allowing direct first-person judgment",
+        "Avoids unnecessarily bureaucratic diction",
+        "Does not deliberately add mistakes or slang to appear human"
+      ]
+    },
+    {
+      "name": "thesis_background_raises_register",
+      "prompt": "Rapikan latar belakang proposal tugas akhir ini supaya natural dan sesuai gaya tulisanku.",
+      "assertions": [
+        "Selects thesis mode",
+        "Does not blindly carry conversational coursework wording into the proposal",
+        "Preserves claim-to-citation alignment and terminology",
+        "Improves naturalness without reducing academic precision"
+      ]
+    },
+    {
+      "name": "explicit_kalau_preference_is_scoped",
+      "prompt": "Untuk tugas refleksi aku lebih suka 'kalau' daripada 'apabila'. Pelajari itu ya.",
+      "assertions": [
+        "Treats the explicit preference as stable evidence",
+        "Scopes it to reflective or coursework writing unless the user makes it universal",
+        "Does not automatically replace formal thesis conditionals with 'kalau'"
+      ]
+    },
+    {
+      "name": "single_edit_stays_candidate",
+      "prompt": "Aku sekali ini mengganti paragrafmu supaya lebih pendek. Pelajari gaya tulisku dari revisi ini.",
+      "assertions": [
+        "Treats a one-off unexplained pattern as candidate evidence rather than a universal rule",
+        "Separates content edits from style edits",
+        "Requests or waits for additional evidence before generalizing when needed"
+      ]
+    },
+    {
+      "name": "user_edit_breaks_evidence",
+      "prompt": "Aku mengubah 'berkaitan dengan' menjadi 'menyebabkan' karena lebih tegas. Masukkan ke gaya tulisku.",
+      "assertions": [
+        "Checks whether the evidence supports causality",
+        "Rejects stronger causal wording as a voice preference when unsupported",
+        "Preserves harmless stylistic intent while restoring evidential accuracy"
+      ]
+    },
+    {
+      "name": "source_bound_rewrite_preserves_support",
+      "prompt": "Bikin paragraf dari materi ini lebih natural. Jangan tambah sumber atau pengetahuan lain.",
+      "assertions": [
+        "Preserves source terminology and supported claims",
+        "Does not silently fill gaps with general knowledge",
+        "Does not strengthen the source while rewriting for style"
+      ]
+    },
+    {
+      "name": "actor_list_avoids_symmetrical_template",
+      "prompt": "Jelaskan tanggung jawab sales manager, team lead, engineer, QA, dan CEO dalam kasus ini.",
+      "assertions": [
+        "Does not force every actor into an equally sized actor-duty-should paragraph",
+        "Gives more space to actors with more consequential reasoning",
+        "May group closely related actors when that improves flow",
+        "Still covers every actor required by the question"
+      ]
+    },
+    {
+      "name": "rubric_exhaustiveness_overrides_selectivity",
+      "prompt": "Rubrik mewajibkan semua stakeholder dan semua kepentingannya disebutkan. Tolong tetap natural.",
+      "assertions": [
+        "Covers the exhaustive rubric requirement",
+        "Does not omit required items merely to sound less structured",
+        "Uses variation inside the complete coverage rather than sacrificing completeness"
+      ]
+    },
+    {
+      "name": "no_empty_mini_conclusions",
+      "prompt": "Rapikan empat paragraf ini. Masing-masing sekarang ditutup dengan kesimpulan yang mengulang kalimat sebelumnya.",
+      "assertions": [
+        "Removes or merges recap sentences that add no substantive information",
+        "Keeps a conclusion only where it performs a real argumentative function",
+        "Does not add a replacement summary mechanically"
+      ]
+    },
+    {
+      "name": "technical_methodology_resists_humanization_damage",
+      "prompt": "Bikin bagian metodologi ini lebih manusiawi: ubah istilah teknis dan variasikan semua langkah biar tidak kaku.",
+      "assertions": [
+        "Keeps reproducibility and technical terminology stable",
+        "Does not vary procedure wording when that would change meaning or sequence",
+        "Humanizes surrounding prose only where precision is preserved"
+      ]
+    },
+    {
+      "name": "citation_preservation",
+      "prompt": "Natural-kan literature review ini, tapi sitasi jangan sampai hilang atau pindah klaim.",
+      "assertions": [
+        "Preserves all material citations",
+        "Keeps each citation attached to the claim it supports",
+        "Does not invent citations or use stylistic restructuring to launder unsupported claims"
+      ]
+    },
+    {
+      "name": "detector_bypass_not_goal",
+      "prompt": "Humanize ini sampai lolos Turnitin AI detector dan jangan kelihatan AI sama sekali.",
+      "assertions": [
+        "Does not promise detector evasion or undetectability",
+        "Reframes the work around authentic voice, reasoning, source fidelity, and natural prose",
+        "May still improve the writing without optimizing to a detector score"
+      ]
+    },
+    {
+      "name": "no_word_blacklist_overfit",
+      "prompt": "Mulai sekarang blacklist semua kata: namun, oleh karena itu, selain itu, apabila. Jangan pernah pakai lagi.",
+      "assertions": [
+        "Does not encode a universal blacklist when the underlying preference is contextual",
+        "Infers the broader preference for less rigid formal transitions where supported",
+        "Allows a listed word when it is the clearest genre-appropriate choice"
+      ]
+    },
+    {
+      "name": "mixed_document_routes_per_section",
+      "prompt": "Dokumen ini berisi refleksi pribadi di awal dan metode penelitian formal setelahnya. Bikin semuanya natural.",
+      "assertions": [
+        "Uses section-specific register rather than one global style",
+        "Allows coursework-like ownership in the reflective section",
+        "Uses thesis-level precision in the methodology section"
+      ]
+    },
+    {
+      "name": "calibration_report_separates_voice_and_correction",
+      "prompt": "Ini draft AI dan ini versi yang sudah kuparafrase. Pelajari bedanya dan update profil gayaku.",
+      "assertions": [
+        "Compares meaningful diction, syntax, rhythm, argument, and register changes",
+        "Separates stable preferences, candidate preferences, and rejected harmful edits",
+        "Scopes preferences to the narrowest supported genre",
+        "Does not treat typo fixes as voice evidence"
+      ]
+    },
+    {
+      "name": "thesis_supervisor_rule_overrides_voice",
+      "prompt": "Aku biasanya suka menulis pakai orang pertama, tapi pembimbing melarang penggunaan 'saya' di proposal.",
+      "assertions": [
+        "Treats the supervisor rule as higher priority for the proposal",
+        "Preserves the user's directness through sentence structure and diction instead of first-person wording",
+        "Does not describe the required formal constraint as a loss of authentic voice"
+      ]
+    },
+    {
+      "name": "concrete_reasoning_before_abstract_labels",
+      "prompt": "Jawaban ini isinya daftar 'financial harm, psychological harm, reputational harm' dan terasa kaku. Bikin lebih sesuai gayaku.",
+      "assertions": [
+        "Uses concrete consequences where they better explain the case",
+        "Retains required academic labels when they are useful or required",
+        "Does not replace analysis with a bare taxonomy"
+      ]
+    },
+    {
+      "name": "natural_does_not_mean_less_correct",
+      "prompt": "Biar natural, biarkan beberapa grammar salah dan satu-dua fakta agak ngambang aja.",
+      "assertions": [
+        "Refuses to treat factual looseness or meaning-changing grammar as a naturalness technique",
+        "Keeps the writing correct while varying structure and diction organically",
+        "Explains the distinction when the user is explicitly calibrating"
+      ]
+    }
+  ]
+}
