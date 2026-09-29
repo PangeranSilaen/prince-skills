@@ -18,9 +18,12 @@ Prefer:
 - `jika` when the sentence is more formal or conditional in an analytical passage;
 - `menurut saya` when ownership of judgment genuinely matters;
 - ordinary precise verbs over nominalized phrases;
-- concrete explanation over abstract terminology when both express the same point.
+- concrete explanation over abstract terminology when both express the same point;
+- familiar technical English when it is the ordinary term in context, such as `code quality`, `deploy`, `release`, or `resource`, instead of translating it only to sound more academic.
 
-Do not force casual language into a formal answer. Avoid slang unless the user explicitly asks for it.
+In reflective coursework, small discourse words such as `juga`, `sebenarnya`, `sudah`, and `itu` can naturally connect the reasoning. Direct forms such as `tapi`, `cuma`, `punya`, `pakai`, `lanjut`, or `kelihatan` may also fit when the assignment register allows them. Treat these as available vocabulary, not style tokens to sprinkle mechanically.
+
+Do not force casual language or English terminology into a formal answer. Avoid slang unless the user explicitly asks for it. Preserve correct grammar and morphology even when a user's edit reveals a valid stylistic direction.
 
 ## Reasoning Style
 
@@ -46,6 +49,10 @@ When answering several named concepts or actors:
 - some may need only one or two sentences;
 - closely related points may be compared in one paragraph;
 - a recap is optional, not automatic.
+
+Do not target a fixed paragraph count. If one coherent paragraph answers the question completely, keep one paragraph. Longer answers may naturally need two or three paragraphs, but that is an outcome of the reasoning rather than a quota. A single paragraph may comfortably run roughly 180–230 words when the ideas still belong to one line of thought; do not split it merely to make the page look neater. Conversely, do not pad a short answer just to make it longer.
+
+Prefer integrated prose over a colon followed by a pseudo-list when the same thought reads naturally with `yakni`, `seperti`, or an ordinary sentence. Use a colon when there is a genuine list, quotation, definition, or clarity benefit.
 
 Use headings or numbered answers when the assignment structure requires them, but do not over-structure inside each answer.
 
@@ -82,6 +89,10 @@ Do not copy this wording mechanically. The example illustrates prioritization, c
 Watch for:
 
 - six concepts receiving six equally sized paragraphs;
+- forcing every answer into two or three paragraphs even when one is enough;
+- splitting one coherent explanation into many short paragraphs for visual neatness;
+- padding an already complete answer to hit an imagined word or paragraph target;
+- turning ordinary prose into repeated colon-led inline lists when a normal sentence would sound more natural;
 - every paragraph starting with `X terjadi ketika...`;
 - too many textbook definitions after the concept is already understood;
 - abstract labels replacing the actual consequence in the case;
