@@ -61,7 +61,7 @@ Typical action: **Ganti kalimat**, **tulis ulang klaim**, or **hapus**.
 ### Assumption -> Fact
 
 Source:
-"Diaumsikan virtualisasi belum didukung failover otomatis."
+"Diasumsikan virtualisasi belum didukung failover otomatis."
 
 Unsafe:
 "Automatic failover tidak tersedia."
