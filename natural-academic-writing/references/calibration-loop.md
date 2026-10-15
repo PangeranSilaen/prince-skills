@@ -23,6 +23,18 @@ The calibration loop should discover durable choices while filtering out acciden
 
 Do not force the user to rewrite the whole document. One to three representative passages are often enough to reveal a pattern.
 
+## Comments and Revision Evidence for Long-form Academic Work
+
+When a user supplies tracked changes, inline comments, or a corrected manuscript, capture the smallest representative **before → after** span together with the user's reason when available. Distinguish:
+
+- **Style preference:** what sounded unnatural and what the user preferred instead.
+- **Content correction:** a revised fact, citation, research scope, chronology, or methodological detail.
+- **Institutional constraint:** a mandated template, term, citation style, or supervisor instruction.
+
+Only the first category is automatically eligible for a voice-profile hypothesis. Content corrections must be applied to the draft and evidence map but not mislearned as stylistic preferences; institutional constraints belong to the project's authoritative rules. Do not infer that a generated paragraph has the user's voice simply because the user approved the general plan. Avoid collecting or exposing restricted project details when sharing calibration examples across repositories.
+
+For proposal/TA, test any learned style tendency against a **different** section function before marking it stable. A valid preference for dense paragraphs in coursework does not justify 180–230 words in every thesis paragraph. If the user has not supplied representative proposal edits yet, keep thesis-specific findings as **candidate**.
+
 ## Delta Classification
 
 Classify edits into one or more categories:
