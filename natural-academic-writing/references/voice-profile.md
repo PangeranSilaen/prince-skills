@@ -88,6 +88,20 @@ The user tends to prefer identifying the important point, explaining why it matt
 
 Completeness is still required when the rubric explicitly asks for exhaustive coverage.
 
+## Thesis / Proposal Voice Calibration Status
+
+**Not yet calibrated sufficiently for a stable thesis-specific voice profile.** The current evidence is mostly revisions of undergraduate coursework. The user's stated dislike of many short, mechanically patterned paragraphs and inflated diction is relevant as an editorial preference, but **no new mandatory proposal paragraph length** has been established.
+
+For thesis/proposal mode, use the following **working hypotheses for review**, not settled universal preferences:
+
+- Write formal but straightforward Indonesian with specific claims and concrete reasoning, rather than boilerplate openings or ornamental transitions.
+- Let paragraph boundaries follow argument changes, not page aesthetics or a 180–230-word quota; avoid both needless fragmentation and overloaded paragraphs.
+- Treat the user's own tracked edits or reviewer comments on actual TA passages as higher-quality calibration evidence than imagined preferences inferred from coursework.
+- Keep `jika`, technical vocabulary, factual uncertainty, attribution, and citations where formal precision requires them, even if a less formal alternative feels conversational.
+- When polishing a proposal about an existing system, preserve chronology and scope. Style is not permission to conceal or invent project status.
+
+**Next calibration gate:** gather and compare manual revisions on one to three passages in Bab 1–3, classifying structural/diction edits separately from corrections to technical meaning, citation support, or chronology. Promote repeated or explicitly endorsed patterns only after the academic validation gate.
+
 ## Candidate Preferences
 
 These are supported by the first calibration case but need more examples before becoming global rules.
