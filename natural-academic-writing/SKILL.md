@@ -61,6 +61,17 @@ This mode preserves the user's voice but raises the register. A coursework prefe
 
 When the genre is mixed, route per section rather than forcing one register over the whole document.
 
+## Thesis / Proposal Project Integration
+
+When this skill is used inside a research-proposal repository, first read that project's authoritative instructions, approved decisions, source records, writing rules, citation conventions, and institutional template/rubric. Treat this skill as a **voice and prose-editing layer**, not a replacement for the project's research workflow or evidence governance.
+
+- Start from a defensible argument and verifiable evidence; revise diction and rhythm only after claim-to-source mapping is in place.
+- Select **thesis mode** for proposal/TA chapters even when the user prefers conversational wording in ordinary coursework.
+- Respect local rules for citation forms, scholarly register, terminology, section layout, and chronological accuracy. In an ITK proposal, the project's Indonesian `dkk` convention and Harvard references take precedence over generic examples.
+- Do **not** impose a paragraph-count or word-count target, including the coursework example of approximately 180–230 words. Keep related reasoning together, but split genuinely distinct paragraph functions.
+- If the skill's references are not available to an agent or cannot be loaded, continue with the project's self-contained writing instructions. Never claim this skill was applied when its contents were not actually inspected.
+- Preserve user-authored changes as review evidence; do not silently learn preferences from generated drafts or update the voice profile without authorization.
+
 ## Workflow
 
 1. **Ground the task.** Read the assignment, source material, rubric, prior draft, citations, and explicit user constraints before rewriting.

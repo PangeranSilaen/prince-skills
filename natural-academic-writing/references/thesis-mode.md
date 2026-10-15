@@ -59,6 +59,14 @@ Possible paragraph functions include:
 
 Let the function determine the structure. Avoid repeating the same `topic sentence -> three supporting sentences -> concluding sentence` shape across an entire section.
 
+### Paragraph density and word count
+
+The user's preference for **fewer, denser paragraphs** is a valid editorial signal, but the approximately **180–230 words per paragraph** noted in the voice profile is **coursework calibration evidence**, not a target for thesis prose. Do not apply a paragraph minimum, maximum, or word quota unless an authoritative project rule explicitly requires one.
+
+For proposals, merge sentences that develop the same claim or evidence-to-inference chain; split when the paragraph changes function (e.g., from surveillance context to NVR integration problem, then to the proposed adapter contribution). A paragraph may be long when its internal logic is clear, or short when a method step or limitation requires precision. The goal is coherent argument units, not visual symmetry or deliberate unevenness.
+
+Never pad a paragraph with generic context or mechanically separate it merely to reach an imagined count. Review each paragraph for one defensible primary claim, adequate support, readable sentence links, and correct citation placement.
+
 ## Natural Academic Flow
 
 Prefer logical continuity over decorative transitions.
@@ -160,6 +168,14 @@ Flag patterns such as:
 - paragraphs that all have nearly identical length and cadence;
 - repeated summaries of the same research gap;
 - claims written more confidently than the evidence allows.
+
+## Reviewer-comment calibration for proposal writing
+
+An author's margin comment or manual rewrite is stronger calibration evidence than a positive reaction to a generated draft. Start with one to three representative paragraphs from distinct proposal functions (e.g., background, literature synthesis, and methodology), preserve their original source mapping, and compare the generated and user-edited versions. Record the **specific** style deltas (diction, syntax, paragraph boundary, emphasis) separately from factual/citation corrections. Apply stable preferences only to their supported genre and section; re-test on another passage before generalizing.
+
+If the user expresses concern that the result feels mechanical, diagnose the relevant pattern. Avoid cosmetic tricks, AI-detector targets, forced human errors, or universal blacklists. A similarity/plagiarism report, even a 0% result, is not a measure of authorial voice or source attribution correctness.
+
+For a *proposal-only* document, describe plans prospectively where appropriate while keeping known prior work and existing systems historically accurate. Do not recast already completed implementation as work that has never happened, nor invent evaluation results, source support, or supervisor approval.
 
 ## Supervisor and Institutional Rules
 

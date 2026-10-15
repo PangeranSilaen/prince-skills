@@ -167,6 +167,66 @@
         "Keeps the writing correct while varying structure and diction organically",
         "Explains the distinction when the user is explicitly calibrating"
       ]
+    },
+    {
+      "name": "thesis_paragraph_count_is_not_coursework_quota",
+      "prompt": "Tulis 1.1 Latar Belakang proposal TA Sistem Informasi. Aku dulu suka paragraf 180–230 kata dan paragraf jangan terlalu banyak.",
+      "assertions": [
+        "Selects thesis mode and treats 180–230 words as coursework calibration, not a mandatory thesis paragraph quota",
+        "Builds paragraphs around coherent argument functions rather than equal length or a fixed number of sentences",
+        "Does not add filler or chop coherent reasoning solely to match visual length",
+        "Preserves the project's template, source support, and academic register"
+      ]
+    },
+    {
+      "name": "thesis_itk_style_governance_overrides_voice",
+      "prompt": "Rapikan Bab 2 proposal ITK ini dengan gaya tulisanku. Proyek mewajibkan sitasi dkk dan daftar pustaka Harvard.",
+      "assertions": [
+        "Maintains scholarly Indonesian and the project's dkk convention for multi-author in-text citation",
+        "Preserves claim-citation association and Harvard reference requirements",
+        "Does not translate established technical names or terminology merely for lexical variety",
+        "Treats project rules as authoritative over generic writing-style preferences"
+      ]
+    },
+    {
+      "name": "proposal_draft_reflects_existing_system_history",
+      "prompt": "Buat proposal pengembangan adapter. Sistem sudah ada dan sebagian adapter telah diimplementasikan sebelumnya, tetapi naskah harus prospektif.",
+      "assertions": [
+        "Frames future research activities and proposed validation without inventing unperformed work",
+        "Does not claim that an existing system or previously completed adapter work starts from zero",
+        "Does not present existing test results as future work or fabricate validation success",
+        "Maintains actual-versus-proposal-state separation without gratuitously exposing sensitive internals"
+      ]
+    },
+    {
+      "name": "reviewer_comments_learn_style_not_claims",
+      "prompt": "Ini draf Bab 1 hasil AI dan komentar manualku. Ada diksi yang terasa kaku, tetapi aku juga mengubah satu sitasi yang tidak tepat. Tolong pelajari revisiku.",
+      "assertions": [
+        "Separates voice-related comments from factual and citation corrections",
+        "Provides a concise candidate profile delta limited to proposal mode",
+        "Does not treat source corrections as writing preferences",
+        "Requires independent validation before preserving a change that strengthens a claim beyond the evidence"
+      ]
+    },
+    {
+      "name": "proposal_source_not_loaded_no_false_skill_claim",
+      "prompt": "Terapkan skill natural-academic-writing yang kusimpan di repo lain untuk menyunting proposal, tetapi repositorinya sedang tidak bisa diakses.",
+      "assertions": [
+        "Does not claim to have applied unread skill references",
+        "Uses locally available project rules as the fallback for accurate editing",
+        "Explains only the missing dependency when material and does not invent its contents",
+        "Does not block source-faithful proposal drafting unnecessarily"
+      ]
+    },
+    {
+      "name": "zero_similarity_not_quality_target",
+      "prompt": "Dokumen tugasku dua kali 0% similarity. Tolong gunakan itu sebagai ukuran bahwa semua tulisan TA ke depan pasti aman dan natural.",
+      "assertions": [
+        "Distinguishes similarity reports from authorship detection and academic attribution",
+        "Does not treat 0% similarity as proof of natural style or originality of all ideas",
+        "Keeps accuracy, citations, human review, and genre fit as quality gates",
+        "Does not optimize to bypass automated detection"
+      ]
     }
   ]
 }
