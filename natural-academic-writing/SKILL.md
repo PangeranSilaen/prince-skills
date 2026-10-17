@@ -196,3 +196,6 @@ For calibration sessions, return both:
 2. a concise profile delta describing what appears to be a real preference, what remains tentative, and what was rejected for correctness reasons.
 
 Do not claim that text is definitively human-written or AI-written from style alone.
+## Idiomatic Indonesian audit
+
+For Indonesian thesis/proposal revisions, apply the idiomatic-syntax pass in `references/thesis-mode.md` after checking source support. Explain the intended relationship in Indonesian rather than translating English sentence architecture word for word. Preserve technical terms, claim strength, citations, and chronology. Treat explicit proposal preferences in `references/voice-profile.md` as scoped guidance, not a global word blacklist.
