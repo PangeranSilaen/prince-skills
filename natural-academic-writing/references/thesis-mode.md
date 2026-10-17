@@ -200,3 +200,5 @@ Generic editorial example: “Pelaksanaan identifikasi perbedaan dilakukan untuk
 Keep established technical English when it is more precise than a forced translation, and apply the institution's italic rules in the final document. Split layered clauses when their references become unclear. Retain conditions, negations, uncertainty, and citation scope when splitting. Paragraphs may compare several studies or develop one mechanism; do not impose one-paper-per-paragraph or repeated opening/closing templates.
 
 Read the revision independently of the English source, then compare its scientific meaning back to the evidence. Report changes to research scope, findings, method, or chronology separately from stylistic edits. A smooth sentence is not evidence of a valid claim.
+
+When the supplied evidence contradicts a sentence, do not present that sentence as clean, copy-ready prose. Preserve the original in the audit and identify the proposed content correction separately. If project governance reserves the substantive choice for the user, mark the affected span as pending rather than silently approving a stronger claim.
