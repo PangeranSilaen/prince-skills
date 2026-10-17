@@ -119,3 +119,7 @@ Therefore:
 - The 2026 Indonesian study used a corpus selected partly through AI-probability criteria, so its features should not be treated as proof of authorship for an individual document.
 - Model behavior changes over time. Prefer broad writing principles such as structural variety, genre fit, and non-redundancy over model-specific word lists.
 - A highly structured human writer can display these same patterns. Style evidence is descriptive, not an authorship verdict.
+
+## Literal-translation audit for Indonesian proposals
+
+As an editorial check, ask whether a sentence is idiomatic Indonesian or merely grammatical word-for-word English. Look for stacked abstract nouns, unclear referents, unnecessary nominalization, and clause order that makes the relationship hard to follow. Diagnose the sentence in context and rewrite its supported relationship directly. This check is a user-requested editing heuristic, not a new research finding, an authorship detector, or grounds for banning particular words.
