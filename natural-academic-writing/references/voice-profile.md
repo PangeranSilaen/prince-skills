@@ -90,7 +90,7 @@ Completeness is still required when the rubric explicitly asks for exhaustive co
 
 ## Thesis / Proposal Voice Calibration Status
 
-**Not yet calibrated sufficiently for a stable thesis-specific voice profile.** The current evidence is mostly revisions of undergraduate coursework. The user's stated dislike of many short, mechanically patterned paragraphs and inflated diction is relevant as an editorial preference, but **no new mandatory proposal paragraph length** has been established.
+**Explicit thesis preferences are recorded below; the full thesis-specific voice remains only partly calibrated.** The current evidence is mostly revisions of undergraduate coursework. The user's stated dislike of many short, mechanically patterned paragraphs and inflated diction is relevant as an editorial preference, but **no new mandatory proposal paragraph length** has been established.
 
 For thesis/proposal mode, use the following **working hypotheses for review**, not settled universal preferences:
 
@@ -166,3 +166,15 @@ Observed comparison:
 - the user's nonstandard `mempengaruhi` edit was treated as a correctness conflict and was **not** learned as a voice preference; the stylistic direction is preserved while standard morphology remains authoritative.
 
 This calibration promotes paragraph density, conversational academic glue, and selective technical-English retention to stable coursework preferences. It remains scoped to Indonesian coursework and should not be transferred mechanically to thesis/proposal writing.
+
+### Calibration 003 — Explicit Indonesian proposal preference (2026-10-18)
+
+Evidence: the user explicitly requested idiomatic academic Indonesian for proposal writing because some sentences felt like literal translations from English. Scope: Indonesian thesis/proposal prose, not a universal word blacklist.
+
+Stable within this scope:
+- Build sentences in natural Indonesian syntax; avoid word-for-word English structures, excessive abstract nouns, and unnecessary nominalization.
+- Prefer a direct verb when it makes the relationship clearer. Keep technical English when it is more natural and precise; do not force translations.
+- Reduce layered clauses and mechanical transitions. Let paragraph structure follow the argument and evidence rather than a repeated template.
+- Preserve scientific meaning, attribution, citation placement, chronology, and formal register. Do not introduce language errors or optimize for AI-detector scores.
+
+This is an explicit preference statement, not evidence that the user has manually approved any revised passage. No private project examples or facts are included. Specific sentence-level choices remain subject to contextual review and the academic validation gate.

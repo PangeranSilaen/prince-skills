@@ -220,3 +220,7 @@ A profile is sufficiently calibrated for a mode when:
 - the same rules work across different topics within the mode.
 
 Calibration is never permanently finished. Treat the profile as a living but conservative model of the user's writing preferences.
+
+## Explicit proposal preferences and later validation
+
+Record an explicit request for idiomatic Indonesian proposal prose as a stable preference within thesis/proposal mode. Distinguish that preference from the still-unverified quality of an agent's particular rewrite. Later manual edits can refine the preference, but are not a prerequisite for recording the user's explicit instruction. Store only generalized style findings in a public skill repository; keep private manuscripts, project facts, and source mappings in their authorized project.

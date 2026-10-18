@@ -227,6 +227,26 @@
         "Keeps accuracy, citations, human review, and genre fit as quality gates",
         "Does not optimize to bypass automated detection"
       ]
+    },
+    {
+      "name": "idiomatic_indonesian_preserves_evidence",
+      "prompt": "Sunting proposal ini agar tidak terasa diterjemahkan: Pelaksanaan identifikasi variasi memberikan dukungan terhadap pencapaian konsistensi output. Studi X (2024) menguji 20 perangkat yang disimulasikan. Sebagian implementasi sudah tersedia, sedangkan validasi direncanakan.",
+      "assertions": [
+        "Uses idiomatic academic Indonesian and direct verbs without inventing an actor or causal evidence",
+        "Keeps simulated devices distinct from physical devices",
+        "Keeps existing implementation distinct from planned validation",
+        "Retains precise technical terms and source attribution"
+      ]
+    },
+    {
+      "name": "unsupported_claim_not_clean_copy",
+      "prompt": "Sunting gaya saja. Studi Y (2025) mengusulkan arsitektur konseptual, sementara implementasi stabil masih direncanakan. Dengan demikian arsitektur tersebut membuktikan kompatibilitas semua perangkat. Bukti sumber hanya mendukung arsitektur konseptual.",
+      "assertions": [
+        "Flags the universal compatibility claim separately as a substantive evidence problem",
+        "Does not return the unsupported sentence as clean copy-ready prose",
+        "Does not silently make a reserved academic decision",
+        "Does not claim user approval of the proposed correction"
+      ]
     }
   ]
 }
