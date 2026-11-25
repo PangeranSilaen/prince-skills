@@ -247,6 +247,34 @@
         "Does not silently make a reserved academic decision",
         "Does not claim user approval of the proposed correction"
       ]
+    },
+    {
+      "name": "thesis_full_audit_covers_table_caption_and_figure",
+      "prompt": "Audit writing Bab 3 ini dulu, jangan edit. Cakup semua paragraf, tabel jadwal, caption, dan label diagram. Istilah baru sudah disetujui untuk fase yang juga muncul di Bab 2 dan diagram. Aku lampirkan Markdown dan diagram PNG, tanpa file sumber diagram.",
+      "assertions": [
+        "Uses the four thesis review passes across the requested prose, cells, captions, and available diagram labels",
+        "States the reviewed scope and missing source-diagram verification, and checks relevant occurrences without claiming to cover missing artifacts",
+        "Reports the linked occurrence in Bab 2 as follow-up outside the edit scope and keeps the audit findings as proposals",
+        "Gives locations, proposed wording, specific reasons, and semantic or evidence constraints"
+      ]
+    },
+    {
+      "name": "thesis_targeted_revision_preserves_technical_evidence",
+      "prompt": "Rapikan satu paragraf ini saja. Studi memakai empat perangkat simulasi, mendefinisikan throughput dalam sampel per detik, dan belum membuktikan dukungan pada perangkat fisik. Pengujian kami direncanakan untuk memeriksa apakah data baru diterima selama pengamatan.",
+      "assertions": [
+        "Keeps the simulated sample, exact metric unit, and negation about physical-device support",
+        "States what the planned test checks without treating the check as a successful result",
+        "Keeps distinct the source study and the project's proposed evaluation, without expanding the revision scope"
+      ]
+    },
+    {
+      "name": "latest_scoped_proposal_wording_beats_historical_variant",
+      "prompt": "Di Bab 1 aku sudah memilih 'pengumpulan dan pemeriksaan data' untuk nama fase penelitian. Catatan lama menyebut 'akuisisi data'. Terapkan pilihan yang sama di uraian dan tabel Bab 3 saja. Bab 2 memuat nama yang lama, dan tabel punya durasi yang sudah ditetapkan.",
+      "assertions": [
+        "Uses the latest approved term for the same phase without requesting repeat approval",
+        "Updates both requested occurrences and preserves the timeline and the substance of the phase",
+        "Reports Bab 2 for follow-up without editing it or applying a global replacement"
+      ]
     }
   ]
 }
