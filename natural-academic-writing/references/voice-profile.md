@@ -4,7 +4,7 @@ This file stores durable writing preferences learned from explicit user feedback
 
 ## Scope
 
-Current calibration is strongest for **Indonesian academic coursework**, especially reflective answers and case analyses. Thesis/proposal preferences are less calibrated and should be treated more conservatively.
+Reflective coursework and thesis/proposal work have separate evidence and register. Use the preferences documented for the relevant mode and follow the assignment or institution where it sets a requirement.
 
 ## Stable Preferences
 
@@ -88,19 +88,18 @@ The user tends to prefer identifying the important point, explaining why it matt
 
 Completeness is still required when the rubric explicitly asks for exhaustive coverage.
 
-## Thesis / Proposal Voice Calibration Status
+## Thesis / Proposal Voice
 
-**Explicit thesis preferences are recorded below; the full thesis-specific voice remains only partly calibrated.** The current evidence is mostly revisions of undergraduate coursework. The user's stated dislike of many short, mechanically patterned paragraphs and inflated diction is relevant as an editorial preference, but **no new mandatory proposal paragraph length** has been established.
+These preferences apply to Indonesian proposal and thesis work within the local academic rules. Adapt them to the section's purpose and the evidence available.
 
-For thesis/proposal mode, use the following **working hypotheses for review**, not settled universal preferences:
+- Use direct, idiomatic Indonesian. Name the actor or component, its action, and the object or condition when that resolves ambiguity. Keep a concise passive construction when naming the actor would add no information.
+- Shape paragraphs around their role in the argument. Keep connected reasoning together and split when the focus changes. Use any paragraph or length constraints set by the assignment or institution.
+- Use the technical term the reader can identify and explain. Retain an established name or English term when it carries a more precise meaning. Explain the underlying action or distinction before using a broad label.
+- Avoid em dashes in proposal prose, captions, and diagram labels. Use ordinary syntax, parentheses, or separate sentences as needed. Write connected ideas as sentences and use a real list or table for parallel items. Preserve punctuation required by the citation convention.
+- Lead figure discussions with the idea, then refer to the figure. Keep the required number at the start of its caption. Put explanatory prose and evidence limits next to the figure, with brief labels inside the figure. Use ordinary capitalization for group labels and preserve official names and acronyms.
+- Where self-reference is needed and allowed, prefer `penulis`. Name the source authors when their actions matter. Choose verbs that identify the work, such as `memeriksa` for checking a document and `mengkaji` for studying the literature.
 
-- Write formal but straightforward Indonesian with specific claims and concrete reasoning, rather than boilerplate openings or ornamental transitions.
-- Let paragraph boundaries follow argument changes, not page aesthetics or a 180–230-word quota; avoid both needless fragmentation and overloaded paragraphs.
-- Treat the user's own tracked edits or reviewer comments on actual TA passages as higher-quality calibration evidence than imagined preferences inferred from coursework.
-- Keep `jika`, technical vocabulary, factual uncertainty, attribution, and citations where formal precision requires them, even if a less formal alternative feels conversational.
-- When polishing a proposal about an existing system, preserve chronology and scope. Style is not permission to conceal or invent project status.
-
-**Next calibration gate:** gather and compare manual revisions on one to three passages in Bab 1–3, classifying structural/diction edits separately from corrections to technical meaning, citation support, or chronology. Promote repeated or explicitly endorsed patterns only after the academic validation gate.
+Use the most recent applicable user decision when wording preferences conflict. Apply a project decision in comparable contexts and use the local glossary for specific terminology. Manual review confirms the choices it covers. Keep new inferences tentative until supported by user feedback.
 
 ## Candidate Preferences
 
@@ -178,3 +177,7 @@ Stable within this scope:
 - Preserve scientific meaning, attribution, citation placement, chronology, and formal register. Do not introduce language errors or optimize for AI-detector scores.
 
 This is an explicit preference statement, not evidence that the user has manually approved any revised passage. No private project examples or facts are included. Specific sentence-level choices remain subject to contextual review and the academic validation gate.
+
+### Calibration 004 — Proposal wording and presentation review
+
+Explicit proposal guidance and subsequent review across proposal sections support the thesis preferences above. Apply agreed wording in comparable sections, including relevant tables, captions, and diagram labels. Keep manuscript excerpts and project-specific terminology in the project that supplied them. An editorial decision carries no evidence about technical claims, methods, or academic approval.

@@ -35,7 +35,7 @@ Routes each work stage between the current browser ChatGPT GPT-5.6 Sol orchestra
 
 ### natural-academic-writing
 
-Drafts and revises Indonesian academic prose while separating source correctness, genre rules, and personal voice. It currently has separate coursework and thesis/proposal modes, an evidence-informed audit for repetitive or formulaic AI-style prose, and a conservative calibration loop that learns from user paraphrases without copying factual, citation, grammar, or academic defects. The initial voice profile is strongest for reflective coursework and is intentionally marked as still calibrating for thesis writing.
+Drafts, revises, and audits Indonesian academic prose in coursework and thesis/proposal modes. Thesis mode includes a sentence-level procedure, worked examples, and checks for evidence, terminology, tables, and figures. The voice profile records preferences by genre and uses user feedback to refine them while preserving factual accuracy and academic requirements.
 
 ### claim-validation
 

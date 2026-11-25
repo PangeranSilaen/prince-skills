@@ -33,7 +33,7 @@ When a user supplies tracked changes, inline comments, or a corrected manuscript
 
 Only the first category is automatically eligible for a voice-profile hypothesis. Content corrections must be applied to the draft and evidence map but not mislearned as stylistic preferences; institutional constraints belong to the project's authoritative rules. Do not infer that a generated paragraph has the user's voice simply because the user approved the general plan. Avoid collecting or exposing restricted project details when sharing calibration examples across repositories.
 
-For proposal/TA, test any learned style tendency against a **different** section function before marking it stable. A valid preference for dense paragraphs in coursework does not justify 180–230 words in every thesis paragraph. If the user has not supplied representative proposal edits yet, keep thesis-specific findings as **candidate**.
+For proposal/TA, test an inferred style tendency against a **different** section function before marking it stable. Explicit preferences apply within their stated scope. A preference for dense paragraphs in coursework does not set a thesis word count. Use applicable approved examples and wording decisions as evidence before requesting more review. Ask again only when a new context leaves the intended choice unclear or a substantive decision is pending.
 
 ## Delta Classification
 
@@ -107,7 +107,7 @@ contradictory revisions
 -> context-dependent; identify the condition rather than choosing one globally
 ```
 
-A stable preference can still be revised when later evidence shows it was overgeneralized.
+Apply the latest explicit decision when it supersedes an older choice in the same context. Update the active guidance and mark the earlier choice as superseded in any retained history. Apply the decision wherever the context matches, within the authorized edit scope. If the user accepts a batch with specified exceptions, record the acceptance and the exceptions as stated.
 
 ## Scope Before Generalization
 

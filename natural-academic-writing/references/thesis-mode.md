@@ -6,7 +6,7 @@ Use this mode for proposal tugas akhir, skripsi/TA, research reports, journal-st
 
 Preserve the user's recognizable directness and reasoning style while producing prose that is acceptable in a formal academic document.
 
-Natural thesis writing should not sound like chat, but it also should not become inflated, ceremonial, or mechanically polished.
+Use a formal, straightforward register. For drafting and revision, use the [writing procedure and worked examples](thesis-writing-audit.md) alongside this reference.
 
 ## Register
 
@@ -31,8 +31,8 @@ Before stylistic revision, identify:
 
 - claims supported by citations;
 - claims derived from the user's own data or analysis;
-- methodological statements;
-- definitions and technical terminology;
+- methodological statements, including which steps are planned and which have been performed;
+- definitions, technical terminology, and the versions or conditions under which observations were made;
 - claims that are currently unsupported or too strong.
 
 During rewriting:
@@ -40,8 +40,10 @@ During rewriting:
 - preserve citation-to-claim alignment;
 - do not strengthen `may`, `can`, `associated with`, or similar cautious claims into certainty;
 - do not invent references to make a paragraph feel complete;
-- do not turn background context into an unsupported causal claim;
-- do not paraphrase a source beyond what it actually supports.
+- keep attribution close to the claim it supports, including after joining or splitting sentences;
+- preserve the source's unit of analysis, definition and unit of each metric, and limits of the sample, setup, or simulation;
+- use partial evidence for the specific claim it establishes. Keep failed requests, unsupported functions, and unverified support distinct when the evidence makes those distinctions;
+- flag missing evidence and distinguish the historical baseline, the current implementation, and any planned change or evaluation.
 
 ## Paragraph Architecture
 
@@ -63,7 +65,7 @@ Let the function determine the structure. Avoid repeating the same `topic senten
 
 The user's preference for **fewer, denser paragraphs** is a valid editorial signal, but the approximately **180–230 words per paragraph** noted in the voice profile is **coursework calibration evidence**, not a target for thesis prose. Do not apply a paragraph minimum, maximum, or word quota unless an authoritative project rule explicitly requires one.
 
-For proposals, merge sentences that develop the same claim or evidence-to-inference chain; split when the paragraph changes function (e.g., from surveillance context to NVR integration problem, then to the proposed adapter contribution). A paragraph may be long when its internal logic is clear, or short when a method step or limitation requires precision. The goal is coherent argument units, not visual symmetry or deliberate unevenness.
+For proposals, keep sentences that develop the same claim or evidence-to-inference chain together. Start a new paragraph when its function changes, for example from explaining a concrete integration problem to motivating a design decision. A paragraph may be long when its internal logic is clear, or short when a method step or limitation requires precision. The goal is coherent argument units, not visual symmetry or deliberate unevenness.
 
 Never pad a paragraph with generic context or mechanically separate it merely to reach an imagined count. Review each paragraph for one defensible primary claim, adequate support, readable sentence links, and correct citation placement.
 
@@ -126,7 +128,7 @@ claim/theme
 -> agreement, difference, limitation, or gap
 ```
 
-Do not turn a literature review into a sequence of citation summaries with identical sentence patterns.
+Compare the mechanisms, evidence, and limits that matter to the argument. Explain what the proposal takes from a source and why. Identify reused findings when they affect whether two studies provide independent evidence.
 
 ### Methodology
 
@@ -143,7 +145,7 @@ Keep:
 - sampling logic;
 - evaluation criteria
 
-exact and consistent. Do not `humanize` technical instructions at the cost of precision.
+exact and consistent. For each planned test, name the activity, input, reference or expected condition, and observable evidence where supported by the design. Describing an observation criterion preserves the possibility of success, failure, or an inconclusive outcome. Claims about time, effort, or ease require evidence for that dimension.
 
 ### Results and Discussion
 
@@ -197,7 +199,7 @@ Build the sentence around the relationship the reader needs to understand: what 
 
 Generic editorial example: “Pelaksanaan identifikasi perbedaan dilakukan untuk pemberian dukungan terhadap proses integrasi” can become “Perbedaan diidentifikasi untuk mendukung proses integrasi.” This is a constructed example, not a source claim. Check the original evidence before adding an actor or a causal connection.
 
-Keep established technical English when it is more precise than a forced translation, and apply the institution's italic rules in the final document. Split layered clauses when their references become unclear. Retain conditions, negations, uncertainty, and citation scope when splitting. Paragraphs may compare several studies or develop one mechanism; do not impose one-paper-per-paragraph or repeated opening/closing templates.
+Keep established technical English when it gives the clearest precise meaning. On the first relevant occurrence in document order, including tables, introduce a verified expansion or original term and explain its role when needed. Keep official names and code identifiers intact. Apply EYD V and the institution's italic, abbreviation, and punctuation rules. Distinguish a language-rule correction from an editorial preference. Split layered clauses when their references become unclear. Retain conditions, negations, uncertainty, and citation scope when splitting. Paragraphs may compare several studies or develop one mechanism; do not impose one-paper-per-paragraph or repeated opening/closing templates.
 
 Read the revision independently of the English source, then compare its scientific meaning back to the evidence. Report changes to research scope, findings, method, or chronology separately from stylistic edits. A smooth sentence is not evidence of a valid claim.
 

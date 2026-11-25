@@ -1,6 +1,6 @@
 ---
 name: natural-academic-writing
-description: Draft, rewrite, and calibrate Indonesian academic writing so it remains content-correct, source-faithful, genre-appropriate, and natural to the user's own voice. Use for personal coursework, reflective assignments, reports, proposals, thesis/TA writing, or revisions where the user wants writing that sounds like them rather than formulaic AI prose. Supports a calibration loop from user edits. Do not optimize for AI-detector evasion, fabricate citations, invent personal experience, or preserve user edits that damage factual or academic correctness.
+description: Draft, revise, audit, and calibrate Indonesian academic writing so it remains content-correct, source-faithful, genre-appropriate, and natural to the user's own voice. Use for personal coursework, reflective assignments, reports, proposals, thesis/TA writing, or revisions where the user wants writing that sounds like them rather than formulaic AI prose. Supports a calibration loop from user edits. Do not optimize for AI-detector evasion, fabricate citations, invent personal experience, or preserve user edits that damage factual or academic correctness.
 ---
 
 # Natural Academic Writing
@@ -29,6 +29,7 @@ Read the references needed for the task:
 - [references/voice-profile.md](references/voice-profile.md) for current user voice preferences.
 - [references/coursework-mode.md](references/coursework-mode.md) for ordinary assignments, reflections, case analyses, and personal academic responses.
 - [references/thesis-mode.md](references/thesis-mode.md) for proposal, thesis/TA, research reports, and other formal long-form academic work.
+- [references/thesis-writing-audit.md](references/thesis-writing-audit.md) for thesis-mode drafting, targeted revision, or a full manuscript audit. Use its scope rules, four passes, and relevant before/after examples.
 - [references/ai-writing-patterns.md](references/ai-writing-patterns.md) when auditing for formulaic or mechanized prose.
 - [references/calibration-loop.md](references/calibration-loop.md) when the user supplies edits, asks the skill to learn their style, or the current voice profile is still being calibrated.
 
@@ -70,7 +71,8 @@ When this skill is used inside a research-proposal repository, first read that p
 - Respect local rules for citation forms, scholarly register, terminology, section layout, and chronological accuracy. In an ITK proposal, the project's Indonesian `dkk` convention and Harvard references take precedence over generic examples.
 - Do **not** impose a paragraph-count or word-count target, including the coursework example of approximately 180–230 words. Keep related reasoning together, but split genuinely distinct paragraph functions.
 - If the skill's references are not available to an agent or cannot be loaded, continue with the project's self-contained writing instructions. Never claim this skill was applied when its contents were not actually inspected.
-- Preserve user-authored changes as review evidence; do not silently learn preferences from generated drafts or update the voice profile without authorization.
+- Use the latest applicable glossary and approved wording across comparable sections. Consult superseded wording only for history. Check affected occurrences across sections and report follow-up outside the authorized edit scope.
+- Preserve user-authored changes as review evidence. Update the voice profile from validated, authorized feedback and keep project-specific wording in local rules.
 
 ## Workflow
 
@@ -80,7 +82,7 @@ When this skill is used inside a research-proposal repository, first read that p
 4. **Draft for correctness first.** Build a defensible answer before optimizing style.
 5. **Apply the voice profile.** Use only preferences that are stable and applicable to the current mode.
 6. **Run a naturalness audit.** Check diction, sentence rhythm, paragraph architecture, transitions, argument progression, symmetry, redundancy, and unnecessary completeness.
-7. **Run an academic guardrail pass.** Correct unsupported claims, ambiguity, citation problems, terminology drift, grammar that changes meaning, and register that is too casual for the mode.
+7. **Run an academic guardrail pass.** Check support, ambiguity, citations, terminology, grammar, and register. For thesis mode, use the [four review passes](references/thesis-writing-audit.md#four-review-passes) across the authorized scope. Flag substantive changes separately from prose edits.
 8. **Return the working draft.** Do not describe it as final merely because it reads smoothly.
 9. **Calibrate when useful.** If the user is actively tuning their voice, invite them to revise or paraphrase representative passages, then learn from the delta using the calibration rules.
 
@@ -188,7 +190,7 @@ If the user explicitly says a preference, treat it as strong evidence but still 
 
 For ordinary writing requests, return the requested writing rather than a style report.
 
-For a style audit, explain the highest-impact patterns first instead of listing every possible AI-like feature.
+For a style audit, lead with the highest-impact issues. For a thesis audit, state the version and coverage, then give locations, proposed wording, specific reasons, and any evidence or scope limits. For a copy-ready request, keep editorial notes outside the manuscript and follow the target format.
 
 For calibration sessions, return both:
 
